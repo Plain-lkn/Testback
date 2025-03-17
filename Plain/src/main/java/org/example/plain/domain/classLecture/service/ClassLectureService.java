@@ -114,14 +114,11 @@ public class ClassLectureService {
         return ClassMemberResponse.from(members);
     }
 
-    /**
-     * 코드 생성기
-     * @return
-     */
-    public String generateCode() {
-        return CodeGenerator.generateCode();
-    }
+    public List<ClassResponse> searchClass(String query) {
+        List<ClassResponse> classes = classLectureRepositoryPort.findByTitle(query);
 
+
+    }
     /**
      * 클래스 초대코드 생성
      * @param id
@@ -131,6 +128,14 @@ public class ClassLectureService {
         ClassLecture classLecture = classLectureRepositoryPort.findById(classId);
 
         return "https://www.example.com/invite?code=" + classLecture.getCode();
+    }
+
+    /**
+     * 코드 생성기
+     * @return
+     */
+    public String generateCode() {
+        return CodeGenerator.generateCode();
     }
 }
 

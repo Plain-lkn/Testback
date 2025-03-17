@@ -1,6 +1,7 @@
 package org.example.plain.domain.classLecture.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.example.plain.domain.classLecture.dto.ClassResponse;
 import org.example.plain.domain.classLecture.entity.ClassLecture;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,10 @@ public class ClassLectureRepositoryAdapter implements ClassLectureRepositoryPort
     @Override
     public ClassLecture findByCode(String code) {
         return classLectureRepository.findByCode(code);
+    }
+
+    @Override
+    public List<ClassResponse> findByTitle(String query) {
+        return classLectureRepository.findByTitle(query);
     }
 }

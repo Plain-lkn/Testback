@@ -1,5 +1,6 @@
 package org.example.plain.domain.classLecture.repository;
 
+import org.example.plain.domain.classLecture.dto.ClassResponse;
 import org.example.plain.domain.classLecture.entity.ClassLecture;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ClassLectureRepositoryPort {
     void delete(String id);
 
     ClassLecture findByCode(String code);
+
+    List<ClassResponse> findByTitle(String query);
 }
