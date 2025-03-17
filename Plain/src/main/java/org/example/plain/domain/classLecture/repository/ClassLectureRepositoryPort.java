@@ -16,5 +16,5 @@ public interface ClassLectureRepositoryPort {
 
     ClassLecture findByCode(String code);
 
-    List<ClassResponse> findByTitle(String query);
+    List<ClassLecture> findByTitle(String query);
 }

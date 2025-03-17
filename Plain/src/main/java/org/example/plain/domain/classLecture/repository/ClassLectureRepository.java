@@ -10,5 +10,5 @@ public interface ClassLectureRepository extends JpaRepository<ClassLecture, Stri
 
     ClassLecture findByCode(String code);
 
-    List<ClassResponse> findByTitle(String query);
+    List<ClassLecture> findByTitle(String query);
 }

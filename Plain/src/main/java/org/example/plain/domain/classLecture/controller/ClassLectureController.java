@@ -81,5 +81,12 @@ public class ClassLectureController {
         return ResponseEntity.ok().body(classLectureService.createCode(classId));
     }
 
+    @Operation(summary = "클래스 검색")
+    @PostMapping("/search")
+    public ResponseEntity<List<ClassResponse>> searchClass(
+            @RequestParam String query
+    ) {
+        return ResponseEntity.ok().body(classLectureService.searchClass(query));
+    }
 
 }

@@ -41,7 +41,7 @@ public class ClassLectureRepositoryAdapter implements ClassLectureRepositoryPort
     }
 
     @Override
-    public List<ClassResponse> findByTitle(String query) {
+    public List<ClassLecture> findByTitle(String query) {
         return classLectureRepository.findByTitle(query);
     }
 }

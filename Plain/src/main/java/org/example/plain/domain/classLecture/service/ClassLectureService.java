@@ -74,12 +74,7 @@ public class ClassLectureService {
         }
 
         classLectureRepositoryPort.delete(classId);
-        return ClassResponse.builder()
-                .id(classLecture.getId())
-                .title(classLecture.getTitle())
-                .description(classLecture.getDescription())
-                .code(classLecture.getCode())
-                .build();
+        return ClassResponse.from(classLecture);
     }
 
     /**
@@ -114,8 +109,14 @@ public class ClassLectureService {
         return ClassMemberResponse.from(members);
     }
 
+    /**
+     * 클래스 검색
+     * @param query
+     * @return
+     */
     public List<ClassResponse> searchClass(String query) {
-        List<ClassResponse> classes = classLectureRepositoryPort.findByTitle(query);
+        return classLectureRepositoryPort.findByTitle(query)
+                .stream().map(ClassResponse::from).toList();
 
 
     }
