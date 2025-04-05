@@ -17,7 +17,7 @@ jobs:
 
       - name: Docker image build 및 push
         run: |
-          docker build -t kimsee/plain-api:latest .
+          docker build -t kimsee/plain-api:latest ./Plain
           docker push kimsee/plain-api:latest
 
       - name: SSH로 EC2에 로그인 후 배포포
