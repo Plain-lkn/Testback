@@ -17,8 +17,8 @@ jobs:
 
       - name: Docker image build 및 push
         run: |
-          sudo docker build -t kimsee/plain:latest ./Plain
-          sudo docker push kimsee/plain:latest
+          sudo docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/plain:latest ./Plain
+          sudo docker push ${{ secrets.DOCKER_HUB_USERNAME }}/plain:latest
 
       - name: SSH로 EC2에 로그인 후 배포포
         uses: appleboy/ssh-action@master
