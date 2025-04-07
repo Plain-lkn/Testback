@@ -29,5 +29,5 @@ jobs:
           script: |
             cd /home/ubuntu/Testback/Plain  # docker-compose3.yaml이 위치한 폴더로 이동
             docker-compose pull  # 최신 이미지 가져오기
-            docker-compose -f docker-compose3.yaml up -d --no-deps --force-recreate api  # API 컨테이너만 재시작
+            docker compose -f docker-compose3.yaml up -d  #docker compose 실행
 
