@@ -2,6 +2,7 @@ package org.example.plain.domain.homework.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.plain.domain.board.entity.BoardEntity;
 import org.example.plain.domain.homework.dto.Work;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -9,9 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
+@Data
 @DiscriminatorValue("Work")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,25 +27,44 @@ public class WorkEntity extends BoardEntity {
     @Column(name = "submit_date", nullable = false)
     private LocalDateTime deadline;
 
+    public WorkEntity(String classId, String title, String content, String type,
+                     String userId, String workId, LocalDateTime deadline) {
+        super(userId, classId, title, content, type);
+        this.workId = workId;
+        this.deadline = deadline;
+    }
+    
+    public WorkEntity(String boardId,String classId, String title, String content, String type,
+                      String userId, String workId, LocalDateTime deadline) {
+        super(boardId, userId, classId, title, content, type);
+        this.workId = workId;
+        this.deadline = deadline;
+    }
+
     public static WorkEntity workToWorkEntity(Work work) {
-        WorkEntity workEntity = new WorkEntity();
-        workEntity.setBoardId(work.getBoardId());
-        workEntity.setClassId(work.getGroupId());
-        workEntity.setWorkId(work.getWorkId());
-        workEntity.setTitle(work.getTitle());
-        workEntity.setContent(work.getContent());
-        workEntity.setType(work.getType());
-        workEntity.setDeadline(work.getDeadline());
-        return workEntity;
+        return WorkEntity.builder()
+                .boardId(work.getBoardId())
+                .classId(work.getGroupId())
+                .title(work.getTitle())
+                .content(work.getContent())
+                .type(work.getType())
+                .userId(work.getUserId())
+                .workId(work.getWorkId())
+                .deadline(work.getDeadline())
+                .build();
     }
 
     public static WorkEntity chaingeWorkEntitytoWork(Work work, WorkEntity workEntity) {
-        WorkEntity chaingeWorkEntity = workEntity;
-        workEntity.setTitle(work.getTitle());
-        workEntity.setContent(work.getContent());
-        workEntity.setType(work.getType());
-        workEntity.setDeadline(work.getDeadline());
-        return chaingeWorkEntity;
+        return WorkEntity.builder()
+                .boardId(workEntity.getBoardId())
+                .classId(workEntity.getClassId())
+                .title(work.getTitle())
+                .content(work.getContent())
+                .type(work.getType())
+                .userId(workEntity.getUserId())
+                .workId(workEntity.getWorkId())
+                .deadline(work.getDeadline())
+                .build();
     }
 
     public void setWorkId(String workId) {

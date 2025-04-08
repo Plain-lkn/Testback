@@ -35,16 +35,17 @@ public class TokenService {
         }
 
         String id = jwtUtil.getId(token);
+        String username = jwtUtil.getUsername(token);
 
         if (jwtUtil.isExpired(token) || refreshTokenRepository.findById(token).isEmpty()) {
             return new ResponseField<>("토큰이 만료되었습니다.", HttpStatus.UNAUTHORIZED,null);
         }
 
         if (jwtUtil.getType(token).equals("refresh")) {
-            token = jwtUtil.makeRefreshToken(id);
+            token = jwtUtil.makeRefreshToken(id, username);
 
             refreshTokenRepository.save(new RefreshToken(token, jwtUtil.getId(token)));
-            response.addHeader("Authorization", jwtUtil.makeJwtToken(id));
+            response.addHeader("Authorization", jwtUtil.makeJwtToken(id, username));
             response.addCookie(makeCookie(token));
             return new ResponseField<>(Message.OK.name(), HttpStatus.OK, response);
         }else

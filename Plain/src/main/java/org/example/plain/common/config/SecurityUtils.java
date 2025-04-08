@@ -12,4 +12,12 @@ public class SecurityUtils {
         }
         return ((CustomUserDetails) authentication.getPrincipal()).getUser().getId();
     }
+
+    public static String getUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof CustomUserDetails)) {
+            throw new IllegalArgumentException("No authentication information found");
+        }
+        return ((CustomUserDetails) authentication.getPrincipal()).getUser().getUsername();
+    }
 }

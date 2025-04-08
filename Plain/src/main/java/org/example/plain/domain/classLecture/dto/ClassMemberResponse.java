@@ -11,7 +11,7 @@ public record ClassMemberResponse(
         String username
 ) {
     public static ClassMemberResponse from(ClassMember classMember) {
-        return new ClassMemberResponse(classMember.getId(), classMember.getUser().getUsername());
+        return new ClassMemberResponse(classMember.getId().getClassId(), classMember.getUser().getUsername());
     }
 
     public static List<ClassMemberResponse> from(List<ClassMember> classMembers) {

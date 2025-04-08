@@ -2,6 +2,7 @@ package org.example.plain.domain.calendar.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.plain.common.ResponseField;
+import org.example.plain.common.config.SecurityUtils;
 import org.example.plain.common.enums.Category;
 import org.example.plain.common.enums.Message;
 import org.example.plain.domain.calendar.dto.CalendarRequest;
@@ -27,11 +28,14 @@ public class CalendarService {
 
     @Transactional
     public ResponseField<CalendarResponse> insertCalendar(CalendarRequest calendarRequest) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        
         // User ID로 User 조회
-        User user = userRepository.findById(calendarRequest.getUser().getId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
-        // NoticeEntity 생성 (User 포함)
+        // CalendarEntity 생성 (User 포함)
         CalendarEntity insertCalendar = CalendarEntity.create(
                 calendarRequest.getTitle(),
                 calendarRequest.getContent(),
@@ -42,28 +46,39 @@ public class CalendarService {
         // 저장
         CalendarEntity calendarEntity = calendarRepository.save(insertCalendar);
 
-        // NoticeResponse 생성 및 반환
+        // CalendarResponse 생성 및 반환
         return new ResponseField<>(Message.OK.name(), HttpStatus.OK, CalendarResponse.from(calendarEntity));
     }
 
     @Transactional
     public ResponseField<CalendarResponse> updateCalendar(CalendarRequest calendarRequest) {
-
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        
+        // 캘린더 엔티티 조회
         CalendarEntity calendarEntity = calendarRepository.findById(calendarRequest.getCalId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 캘린더입니다."));
+        
+        // 권한 확인 - 자신의 캘린더만 수정 가능
+        if (!calendarEntity.getUser().getId().equals(userId)) {
+            return new ResponseField<>(Message.UNAUTHORIZES.name(), HttpStatus.UNAUTHORIZED, null);
+        }
 
         calendarEntity.update(
                 calendarRequest.getCalId(),
                 calendarRequest.getTitle(),
                 calendarRequest.getContent()
-
         );
 
         return new ResponseField<>(Message.OK.name(), HttpStatus.OK, CalendarResponse.from(calendarEntity));
     }
 
     public ResponseField<List<CalendarResponse>> getCalendar(Category category){
-        List<CalendarEntity> calendars = calendarRepository.findByCategory(category);
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        
+        // 사용자의 캘린더만 조회
+        List<CalendarEntity> calendars = calendarRepository.findByCategoryAndUserId(category, userId);
 
         if (calendars.isEmpty()) {
             throw new NoSuchElementException("해당 카테고리에 대한 캘린더가 없습니다.");
@@ -78,14 +93,35 @@ public class CalendarService {
     }
 
     public ResponseField<CalendarResponse> getDetailCalendar(Long calId){
-        return new ResponseField<>(Message.OK.name(), HttpStatus.OK, CalendarResponse.from(calendarRepository.findById(calId).orElseThrow()));
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        
+        // 캘린더 엔티티 조회
+        CalendarEntity calendarEntity = calendarRepository.findById(calId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 캘린더입니다."));
+        
+        // 권한 확인 - 자신의 캘린더만 조회 가능
+        if (!calendarEntity.getUser().getId().equals(userId)) {
+            return new ResponseField<>(Message.UNAUTHORIZES.name(), HttpStatus.UNAUTHORIZED, null);
+        }
+        
+        return new ResponseField<>(Message.OK.name(), HttpStatus.OK, CalendarResponse.from(calendarEntity));
     }
 
     @Transactional
     public void deleteCalendar(Long calId) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        
+        // 캘린더 엔티티 조회
         CalendarEntity calendarEntity = calendarRepository.findById(calId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 캘린더입니다."));
+        
+        // 권한 확인 - 자신의 캘린더만 삭제 가능
+        if (!calendarEntity.getUser().getId().equals(userId)) {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
+        
         calendarRepository.delete(calendarEntity);
     }
-
 }

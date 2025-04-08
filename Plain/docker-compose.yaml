@@ -13,7 +13,7 @@ services:
     image: redis:latest
     restart: always
     ports:
-      - "3101:6378"
+      - "3101:6379"
     container_name: plain-redis
     volumes:
       - C:\Users\user\Desktop\Back\docker\plain:/var/lib/redis
@@ -21,7 +21,7 @@ services:
       - backend
 
   mysql:
-    image: mysql:latest
+    image: kimsee/plain_mysql:latest
     restart: always
     command:
         - --lower_case_table_names=1
@@ -29,13 +29,13 @@ services:
         - --collation-server=utf8mb4_unicode_ci
     container_name: mysql_plain
     ports:
-      - "3310:3306"
+      - "3307:3306"
     environment:
       - MYSQL_DATABASE=plain
       - MYSQL_ROOT_PASSWORD=1234
       - TZ = Asia/Seoul
     volumes:
-      - C:\Users\user\Desktop\Back\docker\plain:/var/lib/mysql
+      - C:\Users\user\Desktop\Back\docker\plain_my:/var/lib/mysql
     networks:
       - backend
 networks:

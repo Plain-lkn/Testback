@@ -1,27 +1,26 @@
 package org.example.plain.domain.homework.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.entity.ClassMemberId;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
-import org.example.plain.domain.homework.dto.Work;
 import org.example.plain.domain.homework.entity.WorkMemberId;
 import org.example.plain.domain.homework.interfaces.WorkMemberService;
 import org.example.plain.domain.homework.dto.WorkMember;
 import org.example.plain.domain.homework.entity.WorkEntity;
 import org.example.plain.domain.homework.entity.WorkMemberEntity;
-import org.example.plain.domain.user.dto.CustomUserDetails;
 import org.example.plain.repository.BoardRepository;
-import org.example.plain.repository.GroupMemberRepository;
 import org.example.plain.repository.WorkMemberRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WorkMemberServiceImpl implements WorkMemberService {
@@ -31,60 +30,73 @@ public class WorkMemberServiceImpl implements WorkMemberService {
     private final ClassMemberRepository classMemberRepository;
 
     @Override
-    public void addHomeworkMember(String workId, String memberId, Authentication authentication) {
-        CustomUserDetails requestUser = (CustomUserDetails) authentication.getPrincipal();
+    @Transactional
+    public void addHomeworkMember(String workId, String memberId, String userId) {
+        WorkEntity work = boardRepository.findByWorkId(workId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
 
-        WorkEntity work = boardRepository.findByWorkId(workId).orElseThrow();
-        //this.checkLeader(work.getGroupId(), requestUser.getUser().getId()); 권한 설정 필요. -> classMember
+        // 권한 체크
+        checkLeader(work.getClassId(), userId);
 
         if (work.getUserId().equals(memberId)) {
-            throw new HttpClientErrorException(HttpStatusCode.valueOf(400),"생성자에게 과제를 할당 할 수 없습니다.");
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), "생성자에게 과제를 할당할 수 없습니다.");
         }
 
-        ClassMember classMember = classMemberRepository.getReferenceById(new ClassMemberId(work.getClassId(), memberId));
+        // 이미 과제가 할당되어 있는지 확인
+        if (workMemberRepository.existsById(new WorkMemberId(workId, memberId))) {
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(400), "이미 과제가 할당된 사용자입니다.");
+        }
 
+        ClassMember classMember = classMemberRepository.findById(new ClassMemberId(work.getClassId(), memberId))
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "클래스 멤버가 아닙니다."));
 
         WorkMemberEntity workMemberEntity = WorkMemberEntity.makeWorkMemberEntity(classMember.getUser(), work);
-
-        System.out.println(workMemberEntity.getWork().getWorkId());
-        System.out.println(workMemberEntity.getWorkMemberId().getWork());
         workMemberRepository.save(workMemberEntity);
+        
+        log.info("과제 멤버 추가 성공 - 과제ID: {}, 멤버ID: {}", workId, memberId);
     }
 
     @Override
-    public void removeHomeworkMember(String workId, String memberId, Authentication authentication) {
-        CustomUserDetails requestUser = (CustomUserDetails) authentication.getPrincipal();
-        WorkEntity work = boardRepository.findByWorkId(workId).orElseThrow();
-        this.checkWriter(work.getWorkId(), requestUser.getUser().getId());
+    @Transactional
+    public void removeHomeworkMember(String workId, String memberId, String userId) {
+        WorkEntity work = boardRepository.findByWorkId(workId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
+
+        // 권한 체크
+        checkLeader(work.getClassId(), userId);
+
+        WorkMemberEntity workMemberEntity = workMemberRepository.findByWorkIdAndUserId(workId, memberId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제 멤버를 찾을 수 없습니다."));
+
+        workMemberRepository.delete(workMemberEntity);
+        log.info("과제 멤버 제거 성공 - 과제ID: {}, 멤버ID: {}", workId, memberId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public WorkMember getSingleMembers(String workId, String memberId) {
-        WorkMemberEntity workMemberEntity = workMemberRepository.getReferenceById(new WorkMemberId(workId,memberId));
+        WorkMemberEntity workMemberEntity = workMemberRepository.findByWorkIdAndUserId(workId, memberId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제 멤버를 찾을 수 없습니다."));
         return WorkMember.changeEntity(workMemberEntity);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<WorkMember> homeworkMembers(String workId) {
-        List<WorkMember> workMemberList = new ArrayList<>();
-        for (WorkMemberEntity workMemberEntity:workMemberRepository.findByWork(boardRepository.findByWorkId(workId).orElseThrow())){
-            workMemberList.add(WorkMember.changeEntity(workMemberEntity));
-        }
-        return workMemberList;
+        WorkEntity work = boardRepository.findByWorkId(workId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
+        
+        return workMemberRepository.findByWork(work).stream()
+                .map(WorkMember::changeEntity)
+                .toList();
     }
 
-//    private void checkLeader(String leaderId, String classId){
-//        GroupMember groupMember = groupMemberRepository.findById(new GroupMemberId(leaderId, classId)).orElseThrow();
-//        if(!groupMember.getAuthority().equals("LEADER")){
-//            throw new HttpClientErrorException(HttpStatusCode.valueOf(403),"권한이 없습니다.");
-//        };
-//    }
-
-    private void checkWriter(String writerId, String boardId){
-        WorkEntity work = (WorkEntity) boardRepository.findByBoardId(boardId).orElseThrow();
-        if(work.getUserId().equals(writerId)){
-            throw new HttpClientErrorException(HttpStatusCode.valueOf(403),"권한이 없습니다.");
+    private void checkLeader(String classId, String userId) {
+        ClassMember classMember = classMemberRepository.findById(new ClassMemberId(classId, userId))
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "수업 멤버를 찾을 수 없습니다."));
+        
+        if (!classMember.getUser().equals(classMember.getClassLecture().getInstructor())) {
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(403), "권한이 없습니다.");
         }
     }
-
 }

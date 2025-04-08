@@ -124,7 +124,7 @@ public class ClassLectureService {
 
     /**
      * 클래스 초대코드 생성
-     * @param id
+     * @param
      * @return
      */
     public String createCode(String classId) {

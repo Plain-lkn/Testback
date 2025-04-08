@@ -1,11 +1,19 @@
 package org.example.plain.domain.homework.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.example.plain.domain.file.entity.FileEntity;
 import org.example.plain.domain.user.entity.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "homework_member")
 public class WorkMemberEntity {
     @EmbeddedId
@@ -22,18 +30,26 @@ public class WorkMemberEntity {
     private User user;
 
     @Column(name = "is_submit")
+    @Builder.Default
     private boolean isSubmited = false;
 
     @Column(name = "is_late")
+    @Builder.Default
     private boolean isLate = false;
 
-    public static WorkMemberEntity makeWorkMemberEntity(User userId, WorkEntity workId) {
-        WorkMemberEntity workMemberEntity = new WorkMemberEntity();
-        workMemberEntity.setWorkMemberId(new WorkMemberId(workId.getWorkId(), userId.getId()));
-        workMemberEntity.setWork(workId);
-        workMemberEntity.setUser(userId);
-        return workMemberEntity;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "h_id", referencedColumnName = "h_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @Builder.Default
+    private List<FileEntity> fileEntities = new ArrayList<>();
 
+    public static WorkMemberEntity makeWorkMemberEntity(User userId, WorkEntity workId) {
+        WorkMemberEntity entity = new WorkMemberEntity();
+        entity.setWorkMemberId(new WorkMemberId(workId.getWorkId(), userId.getId()));
+        entity.setWork(workId);
+        entity.setUser(userId);
+        entity.setFileEntities(new ArrayList<>());
+        return entity;
+    }
 }
 

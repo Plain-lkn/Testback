@@ -12,8 +12,6 @@ public record ClassResponse(
         String title,
         String classImg,
         Long maxMember,
-        Long price,
-        ClassType classType,
         String code,
         String description
 ) {
@@ -24,8 +22,6 @@ public record ClassResponse(
                     classLecture.getTitle(),
                     classLecture.getClassImg(),
                     classLecture.getMaxMember(),
-                    classLecture.getPrice(),
-                    classLecture.getClassType(),
                     classLecture.getCode(),
                     classLecture.getDescription()
             );

@@ -24,22 +24,24 @@ public class JWTUtil {
         tokenScreat = new SecretKeySpec(key.getBytes(), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public String makeJwtToken(String id){
+    public String makeJwtToken(String id, String username){
         return "Bearer " + Jwts.builder()
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+expiresNormal))
                 .claim("type","access")
-                .claim("id",id)
+                .claim("id", id)
+                .claim("username", username)
                 .signWith(tokenScreat)
                 .compact();
     }
 
-    public String makeRefreshToken(String id){
+    public String makeRefreshToken(String id, String username){
         return Jwts.builder()
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+expiresRefresh))
                 .claim("type","refresh")
                 .claim("id",id)
+                .claim("username", username)
                 .signWith(tokenScreat)
                 .compact();
     }

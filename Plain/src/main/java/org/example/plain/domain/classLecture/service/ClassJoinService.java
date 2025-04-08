@@ -1,5 +1,6 @@
 package org.example.plain.domain.classLecture.service;
 
+import com.mysql.cj.exceptions.FeatureNotAvailableException;
 import lombok.RequiredArgsConstructor;
 import org.example.plain.domain.classLecture.entity.ClassLecture;
 import org.example.plain.domain.classLecture.repository.ClassLectureRepositoryPort;
@@ -44,7 +45,11 @@ public class ClassJoinService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        classLecture.addMember(user,classMemberRepository);
+        if (classLecture.getMaxMember() != null && classLecture.getMaxMember() > classLecture.getMembers().size()) {
+            classLecture.addMember(user, classMemberRepository);
+        } else {
+            throw new FeatureNotAvailableException("최대 멤버 수에 초과 했습니다.");
+        }
     }
 
 }

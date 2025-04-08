@@ -50,6 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
         CustomUserDetails customUserDetails = new CustomUserDetails(
                 User.builder()
                         .id(jwtUtil.getId(token))
+                        .username(jwtUtil.getUsername(token))
                         .role(Role.NORMAL)
                         .build()
         );

@@ -39,7 +39,7 @@ public class TokenServiceTest {
 
     @Test
     public void isReissued() {
-        Cookie cookie = new Cookie("token", jwtUtil.makeRefreshToken("test"));
+        Cookie cookie = new Cookie("token", jwtUtil.makeRefreshToken("test", "testName"));
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
 
         ResponseField result = tokenService.reissue(request, response);
@@ -61,7 +61,7 @@ public class TokenServiceTest {
 
     @Test
     public void isUnvalidToken(){
-        Cookie cookie = new Cookie("token", jwtUtil.makeJwtToken("test"));
+        Cookie cookie = new Cookie("token", jwtUtil.makeJwtToken("test","testName"));
         Mockito.when(request.getCookies()).thenReturn(new Cookie[]{cookie});
 
         ResponseField result = tokenService.reissue(request, response);

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Embeddable
 public class ClassMemberId implements Serializable {
 
-    @Column(name = "c_id")
+    @Column(name = "g_id")
     private String classId;
 
     @Column(name = "user_id")

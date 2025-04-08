@@ -2,6 +2,7 @@ package org.example.plain.domain.calendar.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.plain.common.ResponseField;
+import org.example.plain.common.config.SecurityUtils;
 import org.example.plain.common.enums.Category;
 import org.example.plain.domain.calendar.dto.CalendarRequest;
 import org.example.plain.domain.calendar.dto.CalendarResponse;
@@ -12,53 +13,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/calendar")
 @RequiredArgsConstructor
-@RequestMapping("/calendar")
 public class CalendarController {
 
     private final CalendarService calendarService;
 
-    @PostMapping("/{insert}")
-    public ResponseEntity<ResponseField<CalendarResponse>> insertCalendar(
-            @RequestBody CalendarRequest calendarRequest) {
-
-        ResponseField<CalendarResponse> responseBody = calendarService.insertCalendar(calendarRequest);
-
-        return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
+    @PostMapping("/insert")
+    public ResponseField<CalendarResponse> insertCalendar(@RequestBody CalendarRequest calendarRequest) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        calendarRequest.setUserId(userId);
+        return calendarService.insertCalendar(calendarRequest);
     }
 
-    @PatchMapping("/update/{calId}")
-    public ResponseEntity<ResponseField<CalendarResponse>> updateCalendar(
-            @RequestBody CalendarRequest calendarRequest) {
-
-        ResponseField<CalendarResponse> responseBody = calendarService.updateCalendar(calendarRequest);
-
-        return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
+    @PutMapping("/update")
+    public ResponseField<CalendarResponse> updateCalendar(@RequestBody CalendarRequest calendarRequest) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        calendarRequest.setUserId(userId);
+        return calendarService.updateCalendar(calendarRequest);
     }
 
     @GetMapping("/List/{category}")
-    public ResponseEntity<ResponseField<List<CalendarResponse>>> getCalendar(@PathVariable Category category){
-
-        ResponseField<List<CalendarResponse>> responseBody = calendarService.getCalendar(category);
-
-        return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
-
+    public ResponseField<List<CalendarResponse>> getCalendar(@PathVariable Category category) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        return calendarService.getCalendar(category);
     }
-    //?상의필요
-    @GetMapping("/List/{calId}")
-    public ResponseEntity<ResponseField<CalendarResponse>> getDetailCalendar(
-            @PathVariable Long calId) {
 
-        ResponseField<CalendarResponse> responseBody = calendarService.getDetailCalendar(calId);
-
-        return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
-
+    @GetMapping("/List/detail/{calId}")
+    public ResponseField<CalendarResponse> getDetailCalendar(@PathVariable Long calId) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        return calendarService.getDetailCalendar(calId);
     }
 
     @DeleteMapping("/delete/{calId}")
-    public void deleteCalendar(
-            @PathVariable Long calId) {
-
-            calendarService.deleteCalendar(calId);
+    public ResponseEntity<Void> deleteCalendar(@PathVariable Long calId) {
+        // 현재 로그인한 사용자 정보 가져오기
+        String userId = SecurityUtils.getUserId();
+        calendarService.deleteCalendar(calId);
+        return ResponseEntity.ok().build();
     }
 }

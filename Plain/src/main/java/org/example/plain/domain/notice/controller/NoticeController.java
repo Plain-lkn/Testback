@@ -25,7 +25,7 @@ public class NoticeController {
         return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
     }
 
-    @PatchMapping("/notice/{notice_id}")
+    @PatchMapping("/{notice_id}")
     public ResponseEntity<ResponseField<NoticeResponse>> updateNotice(
             @RequestBody NoticeUpdateRequest noticeUpdateRequest) {
 
@@ -43,7 +43,7 @@ public class NoticeController {
 
     }
 
-    @GetMapping("/notice/{notice_id}")
+    @GetMapping("/{notice_id}")
     public ResponseEntity<ResponseField<NoticeResponse>> getNotice(
             @PathVariable Long noticeId) {
 
@@ -63,7 +63,7 @@ public class NoticeController {
 
 
 
-    @PostMapping("/notice/{notice_id}/comments")
+    @PostMapping("/{notice_id}/comments")
     public ResponseEntity<ResponseField<NoticeCommentResponse>> createNoticeComments(
             @RequestBody NoticeCommentRequest noticeCommentRequest) {
 
@@ -73,7 +73,7 @@ public class NoticeController {
 
     }
 
-    @PutMapping("/notice/{notice_id}/comments/{comment_id}")
+    @PutMapping("/{notice_id}/comments/{comment_id}")
     public ResponseEntity<ResponseField<NoticeCommentResponse>> updateNoticeComments(
             @RequestBody NoticeCommentUpdateRequest noticeCommentUpdateRequest) {
 
@@ -81,7 +81,7 @@ public class NoticeController {
         return ResponseEntity.status(responseBody.getStatus()).body(responseBody);
     }
 
-    @DeleteMapping("/notice/{notice_id}/comments/{comment_id}")
+    @DeleteMapping("/{notice_id}/comments/{comment_id}")
     public void deleteNoticeComments(
             @PathVariable Long commentId) {
 

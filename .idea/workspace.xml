@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="">
+    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: 과제, 실시간 강의 통합테스트 및 리팩토링">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +30,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Plain" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Plain" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Plain" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Plain" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -67,10 +47,27 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kimsee8200&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kimsee8200/Testback&quot;,
+    &quot;accountId&quot;: &quot;49e4a3eb-2f47-4579-916e-a259d3b8233d&quot;
+  }
+}</component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -84,18 +81,62 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.Plain/Dockerfile.executor": "Run",
+    "Docker.Plain/docker-compose.yaml.redis: Compose Deployment.executor": "Run",
+    "Gradle.AwsFileServiceImplTest.executor": "Run",
+    "Gradle.Build Plain.executor": "Run",
+    "Gradle.ClassMemberIntegration.executor": "Run",
+    "Gradle.CleanupTest.executor": "Run",
+    "Gradle.CleanupTest.verifyNoDataAfterCleanup.executor": "Run",
+    "Gradle.EmailServiceImplTest.executor": "Run",
+    "Gradle.EmailVerificationServiceTest.executor": "Run",
+    "Gradle.HomeworkIntegrationTest.executor": "Run",
+    "Gradle.MeetingIntegrationTest.executor": "Run",
+    "Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle.executor": "Run",
+    "Gradle.MeetingIntegrationTest.testParticipantStateChanges.executor": "Run",
+    "Gradle.MeetingServiceImplTest.executor": "Run",
+    "Gradle.ParticipantManagement.executor": "Run",
     "Gradle.Plain [:org.example.plain.PlainApplication.main()].executor": "Run",
     "Gradle.Plain [compileJava].executor": "Run",
+    "Gradle.Plain [dependencies].executor": "Run",
+    "Gradle.SubmissionIntegration.cancelSubmission_Success.executor": "Run",
+    "Gradle.SubmissionIntegration.executor": "Run",
+    "Gradle.WebRtcSignalingIntegrationTest.executor": "Run",
+    "Gradle.WorkIntegration.deleteWork_Success.executor": "Run",
+    "Gradle.WorkIntegration.executor": "Run",
+    "Gradle.WorkIntegration.insertWork_Success.executor": "Run",
+    "Gradle.WorkIntegration.selectGroupWorks_Success.executor": "Run",
+    "Gradle.WorkMemberIntegration.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "feat/notice",
+    "Spring Boot.PlainApplication.executor": "Run",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/study/product-order-service",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+    "last_opened_file_path": "C:/Users/user/Desktop/github/Testback/.github/workflows",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "redis"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\github\Testback\.github\workflows" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\study\plain-lkn\Plain\src\main\resources" />
     </key>
@@ -104,48 +145,162 @@
       <recent name="org.example.plain.domain.notice.repository" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.PlainApplication">
-    <configuration name="PlainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.plain.PlainApplication" />
-      <module name="Plain.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.plain.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plain [compileJava]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle">
+    <configuration name="ClassMemberIntegration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="compileJava" />
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$ClassMemberIntegration&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CleanupTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$CleanupTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="CleanupTest.verifyNoDataAfterCleanup" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$CleanupTest.verifyNoDataAfterCleanup&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="MeetingIntegrationTest.testMeetingRoomLifecycle" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.plain.domain.meeting.integration.MeetingIntegrationTest.testMeetingRoomLifecycle&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="WorkIntegration.selectGroupWorks_Success" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$WorkIntegration.selectGroupWorks_Success&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="PlainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Plain.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.plain.PlainApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="애플리케이션.PlainApplication" />
-        <item itemvalue="Gradle.Plain [compileJava]" />
+        <item itemvalue="Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle" />
+        <item itemvalue="Gradle.CleanupTest.verifyNoDataAfterCleanup" />
+        <item itemvalue="Gradle.CleanupTest" />
+        <item itemvalue="Gradle.ClassMemberIntegration" />
+        <item itemvalue="Gradle.WorkIntegration.selectGroupWorks_Success" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
+        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -155,18 +310,67 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1740359268377</updated>
+      <workItem from="1743214457482" duration="611000" />
+      <workItem from="1743332380558" duration="40000" />
+      <workItem from="1743573278782" duration="2042000" />
+      <workItem from="1743639359051" duration="286000" />
+      <workItem from="1743643199115" duration="12699000" />
+      <workItem from="1743742737747" duration="29782000" />
+      <workItem from="1744030143108" duration="1304000" />
     </task>
+    <task id="LOCAL-00001" summary="변경">
+      <option name="closed" value="true" />
+      <created>1744030300239</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1744030300239</updated>
+    </task>
+    <task id="LOCAL-00002" summary="변경">
+      <option name="closed" value="true" />
+      <created>1744032876979</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1744032876979</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refector: fileEntity, Config 오류 해결">
+      <option name="closed" value="true" />
+      <created>1744070934927</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744070934927</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refector: 과제, 실시간 강의 통합테스트 및 리팩토링">
+      <option name="closed" value="true" />
+      <created>1744124645017</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744124645017</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Plain/src/main/java/org/example/plain/PlainApplication.java</url>
-          <line>7</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="변경" />
+    <MESSAGE value="refector: fileEntity, Config 오류 해결" />
+    <MESSAGE value="refector: 과제, 실시간 강의 통합테스트 및 리팩토링" />
+    <option name="LAST_COMMIT_MESSAGE" value="refector: 과제, 실시간 강의 통합테스트 및 리팩토링" />
   </component>
 </project>

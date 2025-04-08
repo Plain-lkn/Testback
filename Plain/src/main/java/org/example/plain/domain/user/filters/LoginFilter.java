@@ -47,8 +47,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
-        String token = jwtUtil.makeJwtToken(customUserDetails.getUser().getId());
-        String refresh = jwtUtil.makeRefreshToken(customUserDetails.getUser().getId());
+        String token = jwtUtil.makeJwtToken(customUserDetails.getUser().getId(), customUserDetails.getUser().getUsername());
+        String refresh = jwtUtil.makeRefreshToken(customUserDetails.getUser().getId(), customUserDetails.getUser().getUsername());
 
         repository.save(new RefreshToken(refresh, customUserDetails.getUser().getId()));
 

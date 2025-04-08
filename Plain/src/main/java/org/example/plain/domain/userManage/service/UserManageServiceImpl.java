@@ -5,12 +5,10 @@ import org.example.plain.domain.classLecture.dto.ClassResponse;
 import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
 import org.example.plain.domain.lecture.normal.entity.Lecture;
-import org.example.plain.domain.user.dto.UserRequest;
 import org.example.plain.domain.user.dto.UserResponse;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.repository.UserRepository;
 import org.example.plain.domain.userManage.interfaces.UserManageService;
-import org.example.plain.repository.GroupMemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

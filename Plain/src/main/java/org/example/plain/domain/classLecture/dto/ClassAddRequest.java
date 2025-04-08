@@ -11,14 +11,10 @@ public record ClassAddRequest(
         String title,
         String classImg,
         Long maxMember,
-        Long price,
-        ClassType classType,
         String description
 ) {
         public ClassLecture toEntity(User user,String code) {
             return ClassLecture.builder()
-                    .price(price)
-                    .classType(classType)
                     .maxMember(maxMember)
                     .instructor(user)
                     .title(title)

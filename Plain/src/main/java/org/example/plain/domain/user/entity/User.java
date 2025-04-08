@@ -22,6 +22,7 @@ public class User {
     private String password;
     private String email;
 
+
     public void setId(String id){
         if (id != null)
             this.id = id;

@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public interface WorkMemberService {
-    public void addHomeworkMember(String workId, String memberId, Authentication authentication);
-    public void removeHomeworkMember(String workId, String memberId, Authentication authentication);
+    public void addHomeworkMember(String workId, String memberId, String userId);
+    public void removeHomeworkMember(String workId, String memberId, String userId);
     public WorkMember getSingleMembers(String workId, String memberId);
     public List<WorkMember> homeworkMembers(String workId);
 }

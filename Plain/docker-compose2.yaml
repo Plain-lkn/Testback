@@ -1,0 +1,50 @@
+
+services:
+  api:
+    image: plain:latest
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "8010:8080"
+    networks:
+      - backend
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "3101:6378"
+    container_name: plain-redis
+    volumes:
+      - redis_data:/var/lib/redis
+    networks:
+      - backend
+
+  mysql:
+    image: kimsee/plain_mysql
+    restart: always
+    command:
+      - --lower_case_table_names=1
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    container_name: mysql_plain
+    ports:
+      - "3310:3306"
+    environment:
+      - MYSQL_DATABASE=plain
+      - MYSQL_ROOT_PASSWORD=1234
+      - TZ = Asia/Seoul
+
+    volumes:
+      - mydb_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mydb_data: {}
+  redis_data: {}
+
+
+networks:
+  backend:
+    driver: bridge

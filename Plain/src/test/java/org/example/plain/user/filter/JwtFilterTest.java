@@ -49,7 +49,7 @@ public class JwtFilterTest {
 
     @Test
     public void haveToken() throws Exception {
-        String validToken = jwtUtil.makeJwtToken("test");
+        String validToken = jwtUtil.makeJwtToken("test","testName");
         Mockito.doReturn(validToken).when(request).getHeader("Authorization");
         jwtFilter.doFilter(request, response, chain);
         Mockito.verify(chain,Mockito.atLeastOnce()).doFilter(request, response);
@@ -57,7 +57,7 @@ public class JwtFilterTest {
 
     @Test
     public void unvalidToken() throws Exception {
-        String invalidToken = jwtUtil.makeRefreshToken("test");
+        String invalidToken = jwtUtil.makeRefreshToken("test", "testName");
         Mockito.doReturn(invalidToken).when(request).getHeader("Authorization");
         Mockito.doReturn(new PrintWriter(new StringWriter())).when(response).getWriter();
         jwtFilter.doFilter(request, response, chain);
@@ -67,7 +67,7 @@ public class JwtFilterTest {
 
     @Test
     public void noBearerToken() throws Exception {
-        String validToken = jwtUtil.makeJwtToken("test").substring(7);
+        String validToken = jwtUtil.makeJwtToken("test","testName").substring(7);
         Mockito.doReturn(validToken).when(request).getHeader("Authorization");
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             jwtFilter.doFilter(request, response, chain);
