@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: 과제, 실시간 강의 통합테스트 및 리팩토링">
+    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: token username 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +146,7 @@
       <recent name="org.example.plain.domain.notice.repository" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle">
+  <component name="RunManager" selected="Spring Boot.PlainApplication">
     <configuration name="ClassMemberIntegration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -350,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744124645017</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refector: token username 추가">
+      <option name="closed" value="true" />
+      <created>1744126059999</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744126059999</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,6 +380,7 @@
     <MESSAGE value="변경" />
     <MESSAGE value="refector: fileEntity, Config 오류 해결" />
     <MESSAGE value="refector: 과제, 실시간 강의 통합테스트 및 리팩토링" />
-    <option name="LAST_COMMIT_MESSAGE" value="refector: 과제, 실시간 강의 통합테스트 및 리팩토링" />
+    <MESSAGE value="refector: token username 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="refector: token username 추가" />
   </component>
 </project>

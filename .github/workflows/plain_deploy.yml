@@ -1,0 +1,38 @@
+name: plain project 배포
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 레포지토리 체크아웃
+        uses: actions/checkout@v3
+
+      - name: application.yml 파일 생성
+        run: |
+          mkdir -p ./src/main/resources
+          echo "${{ secrets.APPLICATION_PROPERTIES }}" | awk '{print}' > ./src/main/resources/application.properties
+        shell: bash
+
+      - name: Docker 이미지 빌드 및 푸시
+        run: |
+          echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u kimsee --password-stdin
+          docker build -t kimsee/plain:latest ./Plain
+          docker push kimsee/plain:latest
+
+      - name: EC2에 SSH 접속하여 배포
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu/Testback/Plain
+            docker rm -f plain-api-1 || true
+            docker compose pull
+            docker compose -f docker-compose3.yaml up -d
