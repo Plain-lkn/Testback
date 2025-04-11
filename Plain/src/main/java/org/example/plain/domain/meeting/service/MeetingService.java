@@ -42,4 +42,11 @@ public interface MeetingService {
     String getOffer(String roomId);
     String getAnswer(String roomId);
     List<String> getCandidates(String roomId);
+
+    /**
+     * 회의실 정보를 조회합니다.
+     * @param roomId 회의실 ID
+     * @return 회의실 정보
+     */
+    MeetingRoomDto getMeetingRoom(String roomId);
 } 

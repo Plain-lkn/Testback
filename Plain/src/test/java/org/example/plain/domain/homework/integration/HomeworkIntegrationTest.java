@@ -1,13 +1,17 @@
 package org.example.plain.domain.homework.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.plain.common.enums.Role;
 import org.example.plain.domain.homework.dto.Work;
 import org.example.plain.domain.homework.dto.WorkMember;
 import org.example.plain.domain.homework.dto.WorkSubmitField;
 import org.example.plain.domain.homework.dto.WorkSubmitListResponse;
+import org.example.plain.domain.homework.entity.WorkEntity;
 import org.example.plain.domain.homework.interfaces.SubmissionService;
 import org.example.plain.domain.homework.interfaces.WorkMemberService;
 import org.example.plain.domain.homework.interfaces.WorkService;
+import org.example.plain.domain.user.dto.UserRequest;
+import org.example.plain.domain.user.interfaces.UserService;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.repository.UserRepository;
 import org.example.plain.domain.classLecture.entity.ClassLecture;
@@ -15,18 +19,20 @@ import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.entity.ClassMemberId;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
 import org.example.plain.domain.classLecture.repository.ClassLectureRepository;
+import org.example.plain.domain.user.service.JWTUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.event.annotation.AfterTestClass;
-import org.springframework.test.context.event.annotation.AfterTestMethod;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.client.HttpClientErrorException;
@@ -37,10 +43,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 @Transactional
-class HomeworkIntegrationTest {
+public class HomeworkIntegrationTest {
     private static final String TEST_WORK_ID = "test-work-1";
     private static final String TEST_INSTRUCTOR_ID = "instructor1";
     private static final String TEST_STUDENT_ID = "student1";
@@ -48,6 +57,12 @@ class HomeworkIntegrationTest {
     private static final String TEST_BOARD_ID = "board1";
     private static final String TEST_TITLE = "Test Work";
     private static final String TEST_CONTENT = "Test Description";
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private SubmissionService submissionService;
@@ -67,6 +82,12 @@ class HomeworkIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private JWTUtil jwtUtil;
+
     private Work testWork;
     private User testInstructor;
     private User testStudent;
@@ -74,6 +95,7 @@ class HomeworkIntegrationTest {
     private ClassLecture testClass;
     private ClassMember instructorClassMember;
     private ClassMember studentClassMember;
+    private String studentToken;
 
     @BeforeEach
     void setUp() {
@@ -159,6 +181,9 @@ class HomeworkIntegrationTest {
             workService.insertWork(testWork, testClass.getId(), testInstructor.getId());
             // 저장된 과제의 workId를 가져옴
             testWork = workService.selectWork(TEST_WORK_ID);
+
+            // 학생용 JWT 토큰 생성
+            studentToken = jwtUtil.makeJwtToken(TEST_STUDENT_ID, "student");
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -224,6 +249,150 @@ class HomeworkIntegrationTest {
         } catch (Exception e) {
             // 정리 과정에서 발생한 예외는 로깅만 하고 계속 진행
             System.err.println("Error during cleanup: " + e.getMessage());
+        }
+    }
+
+    @Nested
+    @DisplayName("과제 CRUD 테스트")
+    class HomeworkCRUD {
+        
+        @Test
+        @DisplayName("과제 생성")
+        @WithMockUser(username = TEST_INSTRUCTOR_ID)
+        void createHomework() throws Exception {
+            // given
+            String content = objectMapper.writeValueAsString(testWork);
+
+            // when
+            ResultActions result = mockMvc.perform(post("/api/v1/classes/{classId}/assignments", TEST_CLASS_ID)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(content));
+
+            // then
+            result.andExpect(status().isNoContent());
+            List<Work> works = workService.selectGroupWorks(TEST_CLASS_ID);
+            assertThat(works).hasSize(1);
+            assertThat(works.get(0).getTitle()).isEqualTo(testWork.getTitle());
+        }
+
+        @Test
+        @DisplayName("과제 조회")
+        @WithMockUser(username = TEST_INSTRUCTOR_ID)
+        void getHomework() throws Exception {
+            // given
+            workService.insertWork(testWork, testClass.getId(), TEST_INSTRUCTOR_ID);
+
+            // when
+            ResultActions result = mockMvc.perform(get("/api/v1/classes/{classId}/assignments/{assignmentId}",
+                    TEST_CLASS_ID, testWork.getWorkId()));
+
+            // then
+            result.andExpect(status().isOk())
+                    .andExpect(jsonPath("$.body.title").value(testWork.getTitle()))
+                    .andExpect(jsonPath("$.body.content").value(testWork.getContent()));
+        }
+
+        @Test
+        @DisplayName("과제 수정")
+        @WithMockUser(username = TEST_INSTRUCTOR_ID)
+        void updateHomework() throws Exception {
+            // given
+            workService.insertWork(testWork, testClass.getId(), TEST_INSTRUCTOR_ID);
+            testWork.setTitle("수정된 과제 제목");
+            String content = objectMapper.writeValueAsString(testWork);
+
+            // when
+            ResultActions result = mockMvc.perform(put("/api/v1/classes/{classId}/assignments/{assignmentId}",
+                    testClass.getId(), testWork.getWorkId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(content));
+
+            // then
+            result.andExpect(status().isNoContent());
+            Work updatedWork = workService.selectWork(testWork.getWorkId());
+            assertThat(updatedWork.getTitle()).isEqualTo("수정된 과제 제목");
+        }
+    }
+
+    @Nested
+    @DisplayName("과제 제출 테스트")
+    class HomeworkSubmission {
+        @Test
+        @DisplayName("과제 제출")
+        void submitHomework() throws Exception {
+            // given
+            // 과제는 강사가 생성해야 함
+            workService.insertWork(testWork, testClass.getId(), TEST_INSTRUCTOR_ID);
+            
+            // 학생을 과제 멤버로 추가
+            workMemberService.addHomeworkMember(testWork.getWorkId(), TEST_STUDENT_ID, TEST_INSTRUCTOR_ID);
+            
+            // 파일 생성
+            MockMultipartFile file = new MockMultipartFile(
+                    "file",
+                    "test.txt",
+                    MediaType.TEXT_PLAIN_VALUE,
+                    "테스트 과제 제출 파일".getBytes()
+            );
+
+            // workSubmitField 생성
+            WorkSubmitField submitField = WorkSubmitField.builder()
+                    .workId(testWork.getWorkId())
+                    .userId(TEST_STUDENT_ID)
+                    //.file(List.of(file))
+                    .build();
+
+            // workSubmitField를 JSON으로 변환
+            String submitFieldJson = objectMapper.writeValueAsString(submitField);
+            MockMultipartFile workSubmitFieldPart = new MockMultipartFile(
+                    "workSubmitField",
+                    "",
+                    MediaType.APPLICATION_JSON_VALUE,
+                    submitFieldJson.getBytes()
+            );
+
+            // when
+            ResultActions result = mockMvc.perform(multipart("/api/v1/classes/{classId}/assignments/{assignmentId}/submissions",
+                    testClass.getId(), testWork.getWorkId())
+                    .file(file)
+                    .file(workSubmitFieldPart)
+                    .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                    .characterEncoding("UTF-8")
+                    .header("Authorization", studentToken)
+            );
+
+            // then
+            result.andExpect(status().isOk());
+            assertThat(submissionService.isSubmitted(testWork.getWorkId(), TEST_STUDENT_ID)).isTrue();
+        }
+
+        @Test
+        @DisplayName("과제 제출 취소")
+        void cancelSubmission() throws Exception {
+            // given
+            // 과제는 강사가 생성해야 함
+            workService.insertWork(testWork, testClass.getId(), TEST_INSTRUCTOR_ID);
+            
+            // 학생을 과제 멤버로 추가
+            workMemberService.addHomeworkMember(testWork.getWorkId(), TEST_STUDENT_ID, TEST_INSTRUCTOR_ID);
+            
+            // 과제 제출
+            WorkSubmitField submitField = WorkSubmitField.builder()
+                    .workId(testWork.getWorkId())
+                    .userId(TEST_STUDENT_ID)
+                    .build();
+            submissionService.submit(submitField);
+
+            // when
+            ResultActions result = mockMvc.perform(delete("/api/v1/classes/{classId}/assignments/{assignmentId}/submissions/me",
+                    testClass.getId(), testWork.getWorkId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", studentToken)
+            );
+
+            // then
+            result.andExpect(status().isNoContent());
+            assertThat(submissionService.isSubmitted(testWork.getWorkId(), TEST_STUDENT_ID)).isFalse();
         }
     }
 

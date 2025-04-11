@@ -47,19 +47,19 @@ public class JWTUtil {
     }
 
     public String getUsername(String token){
-        return Jwts.parser().verifyWith(tokenScreat).build().parseClaimsJws(token).getPayload().get("username", String.class);
+        return Jwts.parser().verifyWith(tokenScreat).build().parseSignedClaims(token).getPayload().get("username", String.class);
     }
 
     public String getId(String token){
-        return Jwts.parser().verifyWith(tokenScreat).build().parseClaimsJws(token).getPayload().get("id", String.class);
+        return Jwts.parser().verifyWith(tokenScreat).build().parseSignedClaims(token).getPayload().get("id", String.class);
     }
 
     public String getType(String token){
-        return Jwts.parser().verifyWith(tokenScreat).build().parseClaimsJws(token).getPayload().get("type", String.class);
+        return Jwts.parser().verifyWith(tokenScreat).build().parseSignedClaims(token).getPayload().get("type", String.class);
     }
 
     public boolean isExpired(String token){
-        return Jwts.parser().verifyWith(tokenScreat).build().parseClaimsJws(token).getPayload().getExpiration().before(new Date());
+        return Jwts.parser().verifyWith(tokenScreat).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
 }

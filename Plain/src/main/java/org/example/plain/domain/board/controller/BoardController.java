@@ -1,5 +1,6 @@
 package org.example.plain.domain.board.controller;
 
+import org.example.plain.domain.board.interfaces.BoardService;
 import org.example.plain.domain.board.service.BoardServiceImpl;
 import org.example.plain.domain.board.dto.Board;
 import org.example.plain.domain.user.dto.UserRequest;
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/notice")
+@RequestMapping("/board")
 public class BoardController {
 
-    BoardServiceImpl boardService;
+    private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/{board_id}")
     public ResponseEntity<Board> getBoard(@PathVariable String board_id) {

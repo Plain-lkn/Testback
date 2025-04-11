@@ -3,7 +3,6 @@ package org.example.plain.domain.meeting.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.plain.domain.meeting.dto.*;
-
 import org.example.plain.domain.meeting.service.ChatService;
 import org.example.plain.domain.meeting.service.MeetingService;
 import org.example.plain.domain.meeting.service.ParticipantService;
@@ -150,5 +149,16 @@ public class MeetingServiceImpl implements MeetingService {
     @Override
     public List<String> getCandidates(String roomId) {
         return signalingService.getCandidates(roomId);
+    }
+
+    @Override
+    public MeetingRoomDto getMeetingRoom(String roomId) {
+        log.info("Getting meeting room info: {}", roomId);
+        MeetingRoomDto meetingRoom = redisTemplate.opsForValue().get("meeting:room:" + roomId);
+        if (meetingRoom == null) {
+            log.warn("Meeting room not found: {}", roomId);
+            throw new RuntimeException("Meeting room not found");
+        }
+        return meetingRoom;
     }
 } 

@@ -1,5 +1,6 @@
 package org.example.plain.domain.user.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.plain.domain.user.dto.*;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.interfaces.UserService;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
@@ -27,7 +29,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
         }
     }
 
-    private OauthLoadUser oauthLoadUser;
+    private final OauthLoadUser oauthLoadUser;
     private final UserService userService;
 
 
@@ -56,6 +58,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
 
         UserResponse userRequestResponse = userService.getUserByEmail(oAuth2Response.getEmail());
 
+        log.info(oAuth2User.getAttributes().toString());
         UserRequest userRequest1;
 
         if(userRequestResponse == null){

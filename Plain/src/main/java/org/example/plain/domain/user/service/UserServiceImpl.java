@@ -7,9 +7,11 @@ import org.example.plain.domain.user.dto.UserResponse;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.interfaces.UserService;
 import org.example.plain.domain.user.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Objects;
 
@@ -24,6 +26,16 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean createUser(UserRequest userRequest) {
+        // 아이디 중복 검사
+        if (userRepository.findById(userRequest.getId()).isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다.");
+        }
+        
+        // 이메일 중복 검사
+        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다.");
+        }
+
         User user = new User(userRequest);
         user.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         user.setRole(Role.NORMAL);

@@ -52,19 +52,21 @@ public class SubmissionServiceImpl implements SubmissionService {
                 .getUser();
 
         try {
-            List<FileEntity> files = fileService.uploadFiles(
-                    SubmitFileData.builder()
-                            .userId(user)
-                            .workId(work)
-                            .build(),
-                    workSubmitField.getFile()
-            );
+            if (workSubmitField.getFile() != null && !workSubmitField.getFile().isEmpty()){
+                List<FileEntity> files = fileService.uploadFiles(
+                        SubmitFileData.builder()
+                                .userId(user)
+                                .workId(work)
+                                .build(),
+                        workSubmitField.getFile()
+                );
+                workMemberEntity.setFileEntities(files);
+            }
 
-            workMemberEntity.setFileEntities(files);
             workMemberEntity.setSubmited(true);
             workMemberEntity.setLate(work.getDeadline().isBefore(LocalDateTime.now()));
             workMemberRepository.save(workMemberEntity);
-            
+
             log.info("과제 제출 성공 - 과제ID: {}, 사용자ID: {}", workSubmitField.getWorkId(), workSubmitField.getUserId());
         } catch (Exception e) {
             log.error("과제 제출 실패 - 과제ID: {}, 사용자ID: {}", workSubmitField.getWorkId(), workSubmitField.getUserId(), e);

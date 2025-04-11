@@ -24,9 +24,14 @@ public class AccountController {
     UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity createAccount(@RequestBody UserRequest userRequest) throws Exception {
-        userService.createUser(userRequest);
-        return ResponseMaker.noContent();
+    public ResponseEntity createAccount(@RequestBody UserRequest userRequest) {
+        try {
+            userService.createUser(userRequest);
+            return ResponseMaker.noContent();
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(new ResponseField<>(e.getMessage(), HttpStatus.valueOf(e.getStatusCode().value()), null));
+        }
     }
 
     @PatchMapping("/update")

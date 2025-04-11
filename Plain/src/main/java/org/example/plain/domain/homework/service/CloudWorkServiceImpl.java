@@ -86,7 +86,7 @@ public class CloudWorkServiceImpl implements WorkService {
                 .map(workEntities -> workEntities.stream()
                         .map(Work::changeWorkEntity)
                         .toList())
-                .orElse(new ArrayList<>());
+                .orElseThrow();
     }
 
     @Override

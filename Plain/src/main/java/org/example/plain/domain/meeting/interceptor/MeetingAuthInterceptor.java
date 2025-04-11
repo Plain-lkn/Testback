@@ -30,7 +30,8 @@ public class MeetingAuthInterceptor implements HandlerInterceptor {
         String userId = authentication.getName();
         String userName = authentication.getDetails() != null ? 
                 authentication.getDetails().toString() : userId;
-        
+
+        // 컨트롤러에 적용되지 않게 해야함.
         // 요청 파라미터에서 roomId 추출
         String roomId = request.getParameter("roomId");
         if (roomId == null || roomId.isEmpty()) {

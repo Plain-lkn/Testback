@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.plain.common.ResponseField;
 import org.example.plain.common.ResponseMaker;
 import org.example.plain.common.config.SecurityUtils;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Tag(name = "homework", description = "과제 관리 API")
 @RestController
 @RequestMapping("/api/v1/classes/{classId}/assignments")
@@ -38,6 +40,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField> createAssignment(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 정보") @RequestBody Work work) {
+        log.info("과제 생성 요청 - classId: {}, work: {}", classId, work);
         workService.insertWork(work, classId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }
@@ -46,6 +49,7 @@ public class ProjectController {
     @GetMapping
     public ResponseEntity<ResponseField<List<Work>>> getAssignmentList(
             @Parameter(description = "수업 ID") @PathVariable String classId) {
+        log.info("과제 목록 조회 요청 - classId: {}", classId);
         return new ResponseMaker<List<Work>>().ok(workService.selectGroupWorks(classId));
     }
 
@@ -54,6 +58,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField<Work>> getAssignmentDetail(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 상세 조회 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         Work work = workService.selectWork(assignmentId);
         return new ResponseMaker<Work>().ok(work);
     }
@@ -64,6 +69,7 @@ public class ProjectController {
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId,
             @Parameter(description = "과제 정보") @RequestBody Work work) {
+        log.info("과제 수정 요청 - classId: {}, assignmentId: {}, work: {}", classId, assignmentId, work);
         workService.updateWork(work, assignmentId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }
@@ -73,6 +79,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField> deleteAssignment(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 삭제 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         workService.deleteWork(assignmentId);
         return new ResponseMaker<Void>().noContent();
     }
@@ -82,6 +89,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField<List<WorkMember>>> getAssignmentMembers(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 제출자 목록 조회 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         return new ResponseMaker<List<WorkMember>>().ok(workMemberService.homeworkMembers(assignmentId));
     }
 
@@ -91,6 +99,7 @@ public class ProjectController {
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId,
             @Parameter(description = "사용자 ID") @PathVariable String userId) {
+        log.info("과제 멤버 추가 요청 - classId: {}, assignmentId: {}, userId: {}", classId, assignmentId, userId);
         workMemberService.addHomeworkMember(assignmentId, userId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }
@@ -101,6 +110,7 @@ public class ProjectController {
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId,
             @Parameter(description = "사용자 ID") @PathVariable String userId) {
+        log.info("과제 멤버 제거 요청 - classId: {}, assignmentId: {}, userId: {}", classId, assignmentId, userId);
         workMemberService.removeHomeworkMember(assignmentId, userId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }
@@ -110,6 +120,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField<List<WorkSubmitListResponse>>> getAssignmentSubmissions(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 제출 목록 조회 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         return new ResponseMaker<List<WorkSubmitListResponse>>().ok(submissionService.getSubmissionList(assignmentId));
     }
 
@@ -119,6 +130,7 @@ public class ProjectController {
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId,
             @Parameter(description = "사용자 ID") @PathVariable String userId) {
+        log.info("사용자 과제 제출 파일 URL 조회 요청 - classId: {}, assignmentId: {}, userId: {}", classId, assignmentId, userId);
         return new ResponseMaker<List<String>>().ok(submissionService.getSubmissionFiles(assignmentId, userId));
     }
 
@@ -127,6 +139,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField<List<String>>> getMySubmissions(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("내 과제 제출물 조회 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         return new ResponseMaker<List<String>>().ok(submissionService.getSubmissionFiles(assignmentId, SecurityUtils.getUserId()));
     }
 
@@ -135,6 +148,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField<Boolean>> checkSubmissionStatus(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 제출 상태 확인 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         return new ResponseMaker<Boolean>().ok(submissionService.isSubmitted(assignmentId, SecurityUtils.getUserId()));
     }
 
@@ -144,6 +158,7 @@ public class ProjectController {
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId,
             @Parameter(description = "제출 정보") @RequestPart WorkSubmitField workSubmitField) {
+        log.info("과제 제출 요청 - classId: {}, assignmentId: {}, workSubmitField: {}", classId, assignmentId, workSubmitField);
         workSubmitField.setUserId(SecurityUtils.getUserId());
         workSubmitField.setWorkId(assignmentId);
         submissionService.submit(workSubmitField);
@@ -155,6 +170,7 @@ public class ProjectController {
     public ResponseEntity<ResponseField> cancelSubmission(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
+        log.info("과제 제출 취소 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
         submissionService.cancelSubmission(assignmentId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }

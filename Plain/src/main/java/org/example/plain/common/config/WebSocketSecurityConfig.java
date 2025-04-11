@@ -20,8 +20,8 @@ public class WebSocketSecurityConfig {
         messages
                 .simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.HEARTBEAT, SimpMessageType.UNSUBSCRIBE, 
                                  SimpMessageType.DISCONNECT).permitAll()
-                .simpDestMatchers("/ws/meeting/**").authenticated()
-                .anyMessage().authenticated();
+                .simpDestMatchers("/ws/meeting/**").permitAll()
+                .anyMessage().permitAll();
         
         return messages;
     }

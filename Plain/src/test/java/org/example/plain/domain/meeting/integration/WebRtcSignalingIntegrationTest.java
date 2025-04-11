@@ -16,20 +16,22 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class WebRtcSignalingIntegrationTest {
 
     @Autowired
@@ -67,9 +69,6 @@ public class WebRtcSignalingIntegrationTest {
                 .build();
         CustomUserDetails userDetails1 = new CustomUserDetails(user1);
         Authentication auth1 = new UsernamePasswordAuthenticationToken(userDetails1, null, userDetails1.getAuthorities());
-        mockSession = mock(WebSocketSession.class);
-        when(mockSession.getUri()).thenReturn(URI.create("/ws/meeting/" + roomId));
-        when(mockSession.getPrincipal()).thenReturn(auth1);
         
         // Create user2 and its authentication
         User user2 = User.builder()
@@ -79,11 +78,29 @@ public class WebRtcSignalingIntegrationTest {
                 .build();
         CustomUserDetails userDetails2 = new CustomUserDetails(user2);
         Authentication auth2 = new UsernamePasswordAuthenticationToken(userDetails2, null, userDetails2.getAuthorities());
-        mockTargetSession = mock(WebSocketSession.class);
-        when(mockTargetSession.getUri()).thenReturn(URI.create("/ws/meeting/" + roomId));
-        when(mockTargetSession.getPrincipal()).thenReturn(auth2);
 
-        // Set authentication in SecurityContext for the current thread
+        // Mock WebSocket sessions
+        mockSession = mock(WebSocketSession.class);
+        mockTargetSession = mock(WebSocketSession.class);
+
+        // Configure mock session attributes
+        Map<String, Object> attributes1 = new ConcurrentHashMap<>();
+        attributes1.put("userId", userId);
+        attributes1.put("username", "User One");
+        
+        Map<String, Object> attributes2 = new ConcurrentHashMap<>();
+        attributes2.put("userId", targetUserId);
+        attributes2.put("username", "User Two");
+
+        when(mockSession.getUri()).thenReturn(URI.create("/ws/meeting/" + roomId));
+        when(mockSession.getAttributes()).thenReturn(attributes1);
+        when(mockSession.isOpen()).thenReturn(true);
+        
+        when(mockTargetSession.getUri()).thenReturn(URI.create("/ws/meeting/" + roomId));
+        when(mockTargetSession.getAttributes()).thenReturn(attributes2);
+        when(mockTargetSession.isOpen()).thenReturn(true);
+
+        // Set authentication in SecurityContext
         SecurityContextHolder.getContext().setAuthentication(auth1);
     }
 
