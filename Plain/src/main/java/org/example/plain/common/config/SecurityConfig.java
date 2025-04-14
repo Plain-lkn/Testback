@@ -71,7 +71,7 @@ public class SecurityConfig {
                             // sing_in은 회원가입 페이지로 이동.
                             authorizeRequests.requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**").permitAll();
                             authorizeRequests.requestMatchers("/account/create","/users/login/**","/","/sign_up", "/api/email/**","/login/**").permitAll();
-                            authorizeRequests.requestMatchers("/login/oauth2/code/**").permitAll();  // OAuth2 콜백 URL 명시적 허용
+                            authorizeRequests.requestMatchers("/login/oauth2/code/**", "account/check-id").permitAll();  // OAuth2 콜백 URL 명시적 허용
                             authorizeRequests.requestMatchers("/api/auth/**").permitAll();
                             authorizeRequests.requestMatchers("/ws/**").permitAll();
                             authorizeRequests.anyRequest().authenticated();
