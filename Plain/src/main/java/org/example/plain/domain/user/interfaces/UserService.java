@@ -10,5 +10,6 @@ public interface UserService {
     boolean updateUser(UserRequest userRequest);
     public boolean deleteUser(String id);
     public UserResponse getUser(String id);
+    public boolean checkUserIdIsExist(String id);
     public UserResponse getUserByEmail(String email);
 }

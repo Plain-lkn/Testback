@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.plain.common.ResponseField;
+import org.example.plain.common.ResponseMaker;
 import org.example.plain.domain.user.dto.CustomUserDetails;
+import org.example.plain.domain.user.dto.TokenResponse;
 import org.example.plain.domain.user.dto.UserLoginRequest;
 import org.example.plain.domain.user.dto.UserRequest;
 import org.example.plain.domain.user.entity.RefreshToken;
@@ -53,6 +55,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         repository.save(new RefreshToken(refresh, customUserDetails.getUser().getId()));
 
         response.addHeader("Authorization",token);
+        response.setContentType("application/json");
+
+        response.getWriter()
+                .write(objectMapper.writeValueAsString(new ResponseMaker<TokenResponse>().ok(new TokenResponse(customUserDetails.getUser().getId(),token))));
         response.addCookie(makeCookie(refresh));
         response.setStatus(HttpStatus.OK.value());
     }

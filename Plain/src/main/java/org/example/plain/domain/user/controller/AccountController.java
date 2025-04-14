@@ -34,6 +34,12 @@ public class AccountController {
         }
     }
 
+    @PostMapping("/check-id")
+    public ResponseField checkUserIdIsPresent(String id) {
+        userService.checkUserIdIsExist(id);
+        return new ResponseMaker<>().ok(null).getBody();
+    }
+
     @PatchMapping("/update")
     public ResponseEntity updateAccount(@RequestBody UserRequest userRequest, Authentication authentication) throws Exception {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();

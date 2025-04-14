@@ -27,9 +27,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean createUser(UserRequest userRequest) {
         // 아이디 중복 검사
-        if (userRepository.findById(userRequest.getId()).isPresent()) {
-            throw new HttpClientErrorException(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다.");
-        }
+        checkUserIdIsExist(userRequest.getId());
         
         // 이메일 중복 검사
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
@@ -66,6 +64,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse getUser(String id) {
         return UserResponse.chaingeUsertoUserResponse(userRepository.findById(id).orElseThrow());
+    }
+
+    @Override
+    public boolean checkUserIdIsExist(String id) {
+        if (userRepository.findById(id).isPresent()) {
+            throw new HttpClientErrorException(HttpStatus.CONFLICT, "이미 존재하는 아이디입니다.");
+        }
+        return true;
     }
 
     @Override
