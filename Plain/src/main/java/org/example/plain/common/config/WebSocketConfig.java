@@ -14,7 +14,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
     private final MeetingWebSocketHandler meetingWebSocketHandler;
-    private final ChatWebSocketHandler chatWebSocketHandler;
+    //private final ChatWebSocketHandler chatWebSocketHandler;
     private final WebSocketAuthInterceptor webSocketAuthInterceptor;
 
     @Override
@@ -23,8 +23,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 .addInterceptors(webSocketAuthInterceptor)
                 .setAllowedOrigins("*");
 
-        registry.addHandler(chatWebSocketHandler, "/ws/chat/{chatId}")
-                //.addInterceptors(webSocketAuthInterceptor)
-                .setAllowedOrigins("*");
+//        registry.addHandler(chatWebSocketHandler, "/ws/chat/{chatId}")
+//                //.addInterceptors(webSocketAuthInterceptor)
+//                .setAllowedOrigins("*");
     }
 } 
