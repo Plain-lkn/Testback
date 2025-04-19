@@ -21,6 +21,7 @@ public class WebSocketSecurityConfig {
                 .simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.HEARTBEAT, SimpMessageType.UNSUBSCRIBE, 
                                  SimpMessageType.DISCONNECT).permitAll()
                 .simpDestMatchers("/ws/meeting/**").permitAll()
+                .simpDestMatchers("/ws/chat/**").permitAll()
                 .anyMessage().permitAll();
         
         return messages;

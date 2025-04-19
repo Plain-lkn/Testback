@@ -3,8 +3,10 @@ package org.example.plain.domain.user.integration;
 import org.example.plain.common.enums.Role;
 import org.example.plain.domain.user.dto.UserRequest;
 import org.example.plain.domain.user.dto.UserResponse;
+import org.example.plain.domain.user.entity.EmailVerification;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.interfaces.UserService;
+import org.example.plain.domain.user.repository.EmailVerificationRepository;
 import org.example.plain.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,6 +33,9 @@ public class UserIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EmailVerificationRepository emailVerificationRepository;
 
     private static final String TEST_USER_ID = "testuser";
     private static final String TEST_USERNAME = "Test User";
@@ -49,6 +57,10 @@ public class UserIntegrationTest {
         // 이전 테스트에서 남은 유저가 있으면 삭제
         userRepository.findById(TEST_USER_ID)
                 .ifPresent(user -> userRepository.delete(user));
+        
+        // 이전 테스트에서 남은 이메일 인증 정보가 있으면 삭제
+        emailVerificationRepository.findById(TEST_EMAIL)
+                .ifPresent(verification -> emailVerificationRepository.delete(verification));
     }
 
     @AfterEach
@@ -56,6 +68,10 @@ public class UserIntegrationTest {
         // 테스트 후 유저 삭제
         userRepository.findById(TEST_USER_ID)
                 .ifPresent(user -> userRepository.delete(user));
+        
+        // 테스트 후 이메일 인증 정보 삭제
+        emailVerificationRepository.findById(TEST_EMAIL)
+                .ifPresent(verification -> emailVerificationRepository.delete(verification));
     }
 
     @Nested
@@ -65,6 +81,16 @@ public class UserIntegrationTest {
         @Test
         @DisplayName("유저 생성 성공")
         void createUser_Success() {
+            // given
+            // 이메일 인증 정보 생성
+            EmailVerification verification = EmailVerification.builder()
+                    .email(TEST_EMAIL)
+                    .code("123456")
+                    .verified(true)
+                    .expiryDate(LocalDateTime.now().plusMinutes(10))
+                    .build();
+            emailVerificationRepository.save(verification);
+
             // when
             boolean result = userService.createUser(testUserRequest);
 
@@ -81,9 +107,47 @@ public class UserIntegrationTest {
         }
 
         @Test
+        @DisplayName("유저 생성 실패 - 이메일 미인증")
+        void createUser_Fail_EmailNotVerified() {
+            // given
+            // 인증되지 않은 이메일 정보 생성
+            EmailVerification verification = EmailVerification.builder()
+                    .email(TEST_EMAIL)
+                    .code("123456")
+                    .verified(false)
+                    .expiryDate(LocalDateTime.now().plusMinutes(10))
+                    .build();
+            emailVerificationRepository.save(verification);
+
+            // when & then
+            assertThrows(HttpClientErrorException.class, () -> 
+                userService.createUser(testUserRequest)
+            );
+        }
+
+        @Test
+        @DisplayName("유저 생성 실패 - 이메일 인증 정보 없음")
+        void createUser_Fail_NoEmailVerification() {
+            // when & then
+            assertThrows(NoSuchElementException.class, () -> 
+                userService.createUser(testUserRequest)
+            );
+        }
+
+        @Test
         @DisplayName("유저 생성 실패 - 중복 ID")
         void createUser_Fail_DuplicateId() {
             // given
+            // 이메일 인증 정보 생성
+            EmailVerification verification = EmailVerification.builder()
+                    .email(TEST_EMAIL)
+                    .code("123456")
+                    .verified(true)
+                    .expiryDate(LocalDateTime.now().plusMinutes(10))
+                    .build();
+            emailVerificationRepository.save(verification);
+            
+            // 첫 번째 유저 생성
             userService.createUser(testUserRequest);
 
             // when & then
@@ -104,6 +168,16 @@ public class UserIntegrationTest {
         @DisplayName("유저 생성 실패 - 중복 이메일")
         void createUser_Fail_DuplicateEmail() {
             // given
+            // 이메일 인증 정보 생성
+            EmailVerification verification = EmailVerification.builder()
+                    .email(TEST_EMAIL)
+                    .code("123456")
+                    .verified(true)
+                    .expiryDate(LocalDateTime.now().plusMinutes(10))
+                    .build();
+            emailVerificationRepository.save(verification);
+            
+            // 첫 번째 유저 생성
             userService.createUser(testUserRequest);
 
             // when & then
