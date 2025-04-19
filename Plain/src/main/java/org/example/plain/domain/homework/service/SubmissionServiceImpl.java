@@ -4,19 +4,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.plain.domain.classMember.entity.ClassMemberId;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
+import org.example.plain.domain.file.dto.FileInfo;
 import org.example.plain.domain.file.dto.SubmitFileData;
 import org.example.plain.domain.file.entity.FileEntity;
+import org.example.plain.domain.file.entity.WorkFileEntity;
 import org.example.plain.domain.file.interfaces.CloudFileService;
+import org.example.plain.domain.file.interfaces.FileDatabaseService;
 import org.example.plain.domain.homework.dto.WorkSubmitField;
 import org.example.plain.domain.homework.dto.WorkSubmitListResponse;
 import org.example.plain.domain.homework.entity.WorkEntity;
 import org.example.plain.domain.homework.entity.WorkMemberEntity;
-import org.example.plain.domain.homework.entity.WorkMemberId;
 import org.example.plain.domain.homework.interfaces.SubmissionService;
-import org.example.plain.domain.homework.repository.FileRepository;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.repository.BoardRepository;
 import org.example.plain.repository.WorkMemberRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +30,26 @@ import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class SubmissionServiceImpl implements SubmissionService {
 
     private final CloudFileService fileService;
+
+    private final FileDatabaseService fileDatabaseService;
     private final WorkMemberRepository workMemberRepository;
     private final ClassMemberRepository groupMemberRepository;
     private final BoardRepository boardRepository;
-    private final FileRepository fileRepository;
+
+    public SubmissionServiceImpl(CloudFileService fileService,
+                                 @Qualifier("assignmentDatabase") FileDatabaseService fileDatabaseService,
+                                 WorkMemberRepository workMemberRepository,
+                                 ClassMemberRepository groupMemberRepository,
+                                 BoardRepository boardRepository) {
+        this.fileService = fileService;
+        this.fileDatabaseService = fileDatabaseService;
+        this.workMemberRepository = workMemberRepository;
+        this.groupMemberRepository = groupMemberRepository;
+        this.boardRepository = boardRepository;
+    }
 
     @Override
     @Transactional
@@ -51,16 +65,36 @@ public class SubmissionServiceImpl implements SubmissionService {
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "클래스 멤버가 아닙니다"))
                 .getUser();
 
+        SubmitFileData submitFileData = SubmitFileData.builder()
+                .userId(user)
+                .workId(work)
+                .build();
+
+        if (submitFileData.getUserId() == null || submitFileData.getWorkId() == null) {
+            throw new IllegalArgumentException("User ID and Work ID cannot be null");
+        }
+
         try {
             if (workSubmitField.getFile() != null && !workSubmitField.getFile().isEmpty()){
-                List<FileEntity> files = fileService.uploadFiles(
-                        SubmitFileData.builder()
-                                .userId(user)
-                                .workId(work)
-                                .build(),
-                        workSubmitField.getFile()
+                List<WorkFileEntity> file = new ArrayList<>();
+                List<FileInfo> files = fileService.uploadFiles(
+                        submitFileData,
+                        workSubmitField.getFile(),
+                        "assingment",
+                        work.getWorkId(),
+                        user.getId()
                 );
-                workMemberEntity.setFileEntities(files);
+
+                files.forEach(fileInfo -> {
+                    WorkFileEntity fileEntity = (WorkFileEntity) fileDatabaseService.save(
+                            fileInfo.getFilename(),
+                            fileInfo.getFileUrl(),
+                            submitFileData
+                    );
+                    file.add(fileEntity);
+                });
+
+                workMemberEntity.setFileEntities(file);
             }
 
             workMemberEntity.setSubmited(true);
@@ -124,11 +158,11 @@ public class SubmissionServiceImpl implements SubmissionService {
         List<FileEntity> files = new ArrayList<>(workMember.getFileEntities());
         for (FileEntity file : files) {
             try {
-                fileService.deleteFile(file.getFilePath());
+                fileService.deleteFile(file);
+                fileDatabaseService.delete(file);
             } catch (Exception e) {
                 log.error("S3 파일 삭제 실패 - 파일URL: {}", file.getFilePath(), e);
             }
-            fileRepository.delete(file);
         }
         
         // 제출 상태 업데이트
@@ -146,6 +180,12 @@ public class SubmissionServiceImpl implements SubmissionService {
      * @return 검증된 WorkMemberEntity
      */
     private WorkMemberEntity validateWorkMember(String workId, String userId) {
+        // 클래스 멤버인지 먼저 확인
+        groupMemberRepository.findById(new ClassMemberId(
+                workMemberRepository.findByWorkIdAndUserId(workId, userId)
+                        .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제 제출 정보를 찾을 수 없습니다"))
+                        .getWork().getClassId(), userId))
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.FORBIDDEN, "클래스 멤버가 아닙니다"));
         return workMemberRepository.findByWorkIdAndUserId(workId, userId)
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제 할당 정보를 찾을 수 없습니다."));
     }

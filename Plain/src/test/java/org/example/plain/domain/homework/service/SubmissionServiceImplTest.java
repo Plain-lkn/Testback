@@ -4,16 +4,19 @@ import org.example.plain.domain.classLecture.entity.ClassLecture;
 import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.entity.ClassMemberId;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
+import org.example.plain.domain.file.dto.FileInfo;
 import org.example.plain.domain.file.dto.SubmitFileData;
-import org.example.plain.domain.file.entity.FileEntity;
+import org.example.plain.domain.file.dto.SubmitFileInfo;
+import org.example.plain.domain.file.entity.WorkFileEntity;
 import org.example.plain.domain.file.interfaces.CloudFileService;
+import org.example.plain.domain.file.interfaces.FileDatabaseService;
 import org.example.plain.domain.homework.dto.Work;
 import org.example.plain.domain.homework.dto.WorkSubmitField;
+import org.example.plain.domain.homework.dto.response.WorkResponse;
 import org.example.plain.domain.homework.entity.WorkEntity;
 import org.example.plain.domain.homework.entity.WorkMemberEntity;
 import org.example.plain.domain.homework.entity.WorkMemberId;
 import org.example.plain.domain.homework.interfaces.WorkService;
-import org.example.plain.domain.homework.repository.FileRepository;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.repository.BoardRepository;
 import org.example.plain.repository.WorkMemberRepository;
@@ -58,7 +61,7 @@ class SubmissionServiceImplTest {
     private WorkService workService;
 
     @Mock
-    private FileRepository fileRepository;
+    private FileDatabaseService fileDatabaseService;
 
     private SubmissionServiceImpl submissionService;
 
@@ -68,12 +71,13 @@ class SubmissionServiceImplTest {
     private ClassMember testClassMember;
     private WorkEntity testWork;
     private WorkMemberEntity testWorkMember;
-    private List<FileEntity> testFiles;
+    private List<WorkFileEntity> testFiles;
+    private List<FileInfo> fileInfos;
     private WorkSubmitField testSubmitField;
 
     @BeforeEach
     void setUp() {
-        submissionService = new SubmissionServiceImpl(fileService, workMemberRepository, groupMemberRepository, boardRepository, fileRepository);
+        submissionService = new SubmissionServiceImpl(fileService,fileDatabaseService, workMemberRepository, groupMemberRepository, boardRepository);
 
         testUser = User.builder()
                 .id("testUser")
@@ -117,14 +121,25 @@ class SubmissionServiceImplTest {
                 .build();
 
         testFiles = Arrays.asList(
-            FileEntity.builder()
+            WorkFileEntity.builder()
                     .filename("test1.txt")
                     .filePath("https://test-bucket.s3.amazonaws.com/test1.txt")
                     .build(),
-            FileEntity.builder()
+            WorkFileEntity.builder()
                     .filename("test2.txt")
                     .filePath("https://test-bucket.s3.amazonaws.com/test2.txt")
                     .build()
+        );
+
+        fileInfos = Arrays.asList(
+                SubmitFileInfo.builder()
+                        .filename("test1.txt")
+                        .fileUrl("https://test-bucket.s3.amazonaws.com/test1.txt")
+                        .build(),
+                SubmitFileInfo.builder()
+                        .filename("test2.txt")
+                        .fileUrl("https://test-bucket.s3.amazonaws.com/test2.txt")
+                        .build()
         );
 
         testSubmitField = WorkSubmitField.builder()
@@ -140,17 +155,18 @@ class SubmissionServiceImplTest {
     @Test
     void submit_Success() {
         // given
-        Work work = new Work();
-        work.setWorkId("testWorkId");
-        work.setDeadline(LocalDateTime.now().plusDays(1));
+        WorkResponse workResponse = WorkResponse.builder()
+                .workId("testWorkId")
+                .deadline(LocalDateTime.now().plusDays(1))
+                .build();
 
-        when(workService.selectWork("testWorkId")).thenReturn(work);
+        when(workService.selectWork("testWorkId")).thenReturn(workResponse);
         when(workMemberRepository.findById(any(WorkMemberId.class)))
                 .thenReturn(Optional.of(testWorkMember));
         when(groupMemberRepository.findById(any(ClassMemberId.class)))
                 .thenReturn(Optional.of(testClassMember));
         when(fileService.uploadFiles(any(SubmitFileData.class), any()))
-                .thenReturn(testFiles);
+                .thenReturn(fileInfos);
 
         // when
         submissionService.submit(testSubmitField);
@@ -167,11 +183,12 @@ class SubmissionServiceImplTest {
     @Test
     void submit_NotClassMember_ThrowsException() {
         // given
-        Work work = new Work();
-        work.setWorkId("testWorkId");
-        work.setDeadline(LocalDateTime.now().plusDays(1));
+        WorkResponse workResponse = WorkResponse.builder()
+                .workId("testWorkId")
+                .deadline(LocalDateTime.now().plusDays(1))
+                .build();
 
-        when(workService.selectWork("testWorkId")).thenReturn(work);
+        when(workService.selectWork("testWorkId")).thenReturn(workResponse);
         when(workMemberRepository.findById(any(WorkMemberId.class)))
                 .thenReturn(Optional.of(testWorkMember));
         when(groupMemberRepository.findById(any(ClassMemberId.class)))
@@ -189,11 +206,12 @@ class SubmissionServiceImplTest {
     @Test
     void submit_DeadlinePassed_ThrowsException() {
         // given
-        Work work = new Work();
-        work.setWorkId("testWorkId");
-        work.setDeadline(LocalDateTime.now().minusDays(1));
+        WorkResponse workResponse = WorkResponse.builder()
+                .workId("testWorkId")
+                .deadline(LocalDateTime.now().minusDays(1))
+                .build();
 
-        when(workService.selectWork("testWorkId")).thenReturn(work);
+        when(workService.selectWork("testWorkId")).thenReturn(workResponse);
         when(workMemberRepository.findById(any(WorkMemberId.class)))
                 .thenReturn(Optional.of(testWorkMember));
         when(groupMemberRepository.findById(any(ClassMemberId.class)))

@@ -1,12 +1,13 @@
- package org.example.plain.domain.homework.interfaces;
+package org.example.plain.domain.homework.interfaces;
 
 import org.example.plain.domain.homework.dto.WorkSubmitField;
 import org.example.plain.domain.homework.dto.WorkSubmitListResponse;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
+/**
+ * 과제 제출 관련 서비스 인터페이스
+ */
 public interface SubmissionService {
     /**
      * 과제 제출

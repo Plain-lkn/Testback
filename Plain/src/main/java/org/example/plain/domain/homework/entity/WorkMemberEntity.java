@@ -3,6 +3,7 @@ package org.example.plain.domain.homework.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.plain.domain.file.entity.FileEntity;
+import org.example.plain.domain.file.entity.WorkFileEntity;
 import org.example.plain.domain.user.entity.User;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class WorkMemberEntity {
     @JoinColumn(name = "h_id", referencedColumnName = "h_id")
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @Builder.Default
-    private List<FileEntity> fileEntities = new ArrayList<>();
+    private List<WorkFileEntity> fileEntities = new ArrayList<>();
 
     public static WorkMemberEntity makeWorkMemberEntity(User userId, WorkEntity workId) {
         WorkMemberEntity entity = new WorkMemberEntity();

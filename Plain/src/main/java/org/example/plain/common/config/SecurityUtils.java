@@ -8,7 +8,7 @@ public class SecurityUtils {
     public static String getUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof CustomUserDetails)) {
-            throw new IllegalArgumentException("No authentication information found");
+            throw new IllegalArgumentException("유저 정보가 없습니다.");
         }
         return ((CustomUserDetails) authentication.getPrincipal()).getUser().getId();
     }
@@ -16,7 +16,7 @@ public class SecurityUtils {
     public static String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof CustomUserDetails)) {
-            throw new IllegalArgumentException("No authentication information found");
+            throw new IllegalArgumentException("유저 정보가 없습니다.");
         }
         return ((CustomUserDetails) authentication.getPrincipal()).getUser().getUsername();
     }

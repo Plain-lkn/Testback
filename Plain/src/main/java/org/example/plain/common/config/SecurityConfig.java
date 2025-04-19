@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
 import org.example.plain.common.handler.SecurityExceptionHandler;
+import org.example.plain.domain.file.interfaces.CloudFileService;
+import org.example.plain.domain.file.service.AwsFileServiceImpl;
 import org.example.plain.domain.user.filters.JwtFilter;
 import org.example.plain.domain.user.filters.LoginFilter;
 import org.example.plain.domain.user.handler.CustomOAuth2SuccessHandler;
@@ -51,10 +53,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserService userService() {
-        return new UserServiceImpl(userRepository, passwordEncoder());
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -73,7 +71,6 @@ public class SecurityConfig {
                             authorizeRequests.requestMatchers("/account/create","/users/login/**","/","/sign_up", "/api/email/**","/login/**").permitAll();
                             authorizeRequests.requestMatchers("/login/oauth2/code/**", "account/check-id").permitAll();  // OAuth2 콜백 URL 명시적 허용
                             authorizeRequests.requestMatchers("/api/auth/**").permitAll();
-                            authorizeRequests.requestMatchers("/ws/**").permitAll();
                             authorizeRequests.anyRequest().authenticated();
                         }
                 )
