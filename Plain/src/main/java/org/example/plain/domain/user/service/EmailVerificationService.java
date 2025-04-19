@@ -45,7 +45,8 @@ public class EmailVerificationService {
             throw new IllegalArgumentException("인증 코드가 만료되었습니다");
         }
 
-        emailVerificationRepository.delete(verification);
+        verification.setVerified(true);
+        emailVerificationRepository.save(verification);
         return true;
     }
 

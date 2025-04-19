@@ -1,17 +1,21 @@
 package org.example.plain.domain.homework.service;
 
-import lombok.RequiredArgsConstructor;
 import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.entity.ClassMemberId;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
+import org.example.plain.domain.file.dto.FileInfo;
+import org.example.plain.domain.file.dto.WorkFileData;
 import org.example.plain.domain.file.entity.FileEntity;
 import org.example.plain.domain.file.interfaces.CloudFileService;
+import org.example.plain.domain.file.interfaces.FileDatabaseService;
+import org.example.plain.domain.file.repository.WorkDocFileRepository;
 import org.example.plain.domain.homework.dto.*;
+import org.example.plain.domain.homework.dto.response.WorkResponse;
 import org.example.plain.domain.homework.entity.*;
 import org.example.plain.domain.homework.interfaces.WorkService;
-import org.example.plain.domain.homework.repository.FileRepository;
 import org.example.plain.repository.BoardRepository;
 import org.example.plain.repository.WorkMemberRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,16 +28,32 @@ import java.util.*;
 import static org.example.plain.common.service.UUIDService.makeUUID;
 
 @Service
-@RequiredArgsConstructor
 public class CloudWorkServiceImpl implements WorkService {
     private final CloudFileService fileService;
     private final BoardRepository boardRepository;
     private final WorkMemberRepository workMemberRepository;
     private final ClassMemberRepository classMemberRepository;
-    private final FileRepository fileRepository;
+    private final FileDatabaseService fileDatabaseService;
+    private final WorkDocFileRepository fileRepository;
 
     @Value("${file.path}")
     private String filepath;
+
+    public CloudWorkServiceImpl(
+            CloudFileService fileService,
+            BoardRepository boardRepository,
+            WorkMemberRepository workMemberRepository,
+            ClassMemberRepository classMemberRepository,
+            @Qualifier("workDoc") FileDatabaseService fileDatabaseService,
+            WorkDocFileRepository fileRepository
+    ) {
+        this.fileService = fileService;
+        this.boardRepository = boardRepository;
+        this.workMemberRepository = workMemberRepository;
+        this.classMemberRepository = classMemberRepository;
+        this.fileDatabaseService = fileDatabaseService;
+        this.fileRepository = fileRepository;
+    }
 
     @Transactional
     @Override
@@ -56,7 +76,17 @@ public class CloudWorkServiceImpl implements WorkService {
         WorkEntity workEntity = WorkEntity.workToWorkEntity(work);
         workEntity.setUser(classMember.getUser());
         workEntity.setGroup(classMember.getClassLecture());
-        boardRepository.save(workEntity);
+        
+        // 먼저 homework 엔티티를 저장
+        WorkEntity savedWorkEntity = boardRepository.save(workEntity);
+
+        // 파일이 있는 경우에만 파일 저장
+        if (work.getFileList() != null && !work.getFileList().isEmpty()) {
+            fileService.uploadFiles(new WorkFileData(savedWorkEntity.getWorkId()), work.getFileList(), savedWorkEntity.getWorkId(), "temp")
+                    .forEach(fileInfo -> {
+                        fileDatabaseService.save(fileInfo.getFilename(), fileInfo.getFileUrl(), new WorkFileData(savedWorkEntity.getWorkId()));
+                    });
+        }
     }
 
     @Override
@@ -65,22 +95,63 @@ public class CloudWorkServiceImpl implements WorkService {
         WorkEntity workEntity = boardRepository.findByWorkId(workId)
                 .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
         
-        if (!workEntity.getUser().getId().equals(userId)) {
+        if (!workEntity.getUserId().equals(userId)) {
             throw new HttpClientErrorException(HttpStatus.FORBIDDEN, "작성자가 아닙니다.");
         }
-        
+
         work.setWorkId(workId);
         boardRepository.save(WorkEntity.chaingeWorkEntitytoWork(work, workEntity));
+
+
+        if (work.getFileList() != null && !work.getFileList().isEmpty()) {
+
+            fileRepository.findByWorkWorkId(work.getWorkId()).forEach(workFile -> {
+                fileService.deleteFile(workFile);
+                fileDatabaseService.delete(workFile);
+            });
+
+            fileService.uploadFiles(new WorkFileData(work.getWorkId()), work.getFileList(), work.getWorkId(), "temp")
+                    .forEach(fileInfo -> {
+                        fileDatabaseService.save(fileInfo.getFilename(), fileInfo.getFileUrl(), new WorkFileData(work.getWorkId()));
+                    });
+        }
     }
 
+    @Transactional(readOnly = true)
     @Override
-    @Transactional(readOnly = true)
-    public Work selectWork(String workId) {
-        return Work.changeWorkEntity(boardRepository.findByWorkId(workId)
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다.")));
+    public WorkResponse selectWork(String workId) {
+        WorkEntity workEntity = boardRepository.findByWorkId(workId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
+
+        List<FileInfo> fileInfos = (List<FileInfo>) fileRepository.findByWorkWorkId(workId).stream()
+                .map(file -> FileInfo.builder()
+                        .filename(file.getFilename())
+                        .fileUrl(file.getFilePath())
+                        .build())
+                .toList();
+
+        return WorkResponse.builder()
+                .workId(workEntity.getWorkId())
+                .boardId(workEntity.getBoardId())
+                .groupId(workEntity.getClassId())
+                .writer(workEntity.getUserId())
+                .title(workEntity.getTitle())
+                .content(workEntity.getContent())
+                .deadline(workEntity.getDeadline())
+                .fileList(fileInfos) // MultipartFile 리스트는 조회 시에는 null로 설정
+                .build();
     }
 
     @Transactional(readOnly = true)
+    @Override
+    public Work selectWorkDto(String workId) {
+        WorkEntity workEntity = boardRepository.findByWorkId(workId)
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "과제를 찾을 수 없습니다."));
+        return Work.changeWorkEntity(workEntity);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<Work> selectGroupWorks(String groupId) {
         return boardRepository.findByGroupId(groupId)
                 .map(workEntities -> workEntities.stream()

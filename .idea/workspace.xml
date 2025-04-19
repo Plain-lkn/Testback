@@ -6,7 +6,46 @@
   <component name="ChangeListManager">
     <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: token username 추가">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/docker-compose3.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/docker-compose3.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/PlainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/PlainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebSocketSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebSocketSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/board/service/BoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileData.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileData.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/FileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/CloudFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/CloudFileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/AwsFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/AwsFileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/controller/ProjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/dto/Work.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/dto/Work.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/entity/WorkMemberEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/entity/WorkMemberEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/SubmissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/SubmissionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/WorkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/WorkService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/CloudWorkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/CloudWorkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/SubmissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/SubmissionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/interceptor/WebSocketAuthInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/interceptor/WebSocketAuthInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/dto/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/dto/UserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/entity/EmailVerification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/entity/EmailVerification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/interfaces/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/interfaces/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/repository/HttpCookieOAuth2AuthorizationRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/repository/HttpCookieOAuth2AuthorizationRequestRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/CookieUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/EmailVerificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/EmailVerificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/repository/BoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/repository/BoardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/file/service/AwsFileServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/file/service/AwsFileServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/integration/HomeworkIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/integration/HomeworkIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/service/SubmissionServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/service/SubmissionServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/user/integration/UserIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/user/integration/UserIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/homework/service/WorkServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/homework/service/WorkServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/user/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/user/service/UserServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +95,12 @@
     &quot;assignee&quot;: &quot;kimsee8200&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kimsee8200/Testback&quot;,
-    &quot;accountId&quot;: &quot;49e4a3eb-2f47-4579-916e-a259d3b8233d&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kimsee8200/Testback2",
+    "accountId": "57523f15-897e-4909-a52d-85206ca638a5"
   }
-}</component>
+}]]></component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
@@ -80,60 +119,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.Plain/Dockerfile.executor": "Run",
-    "Docker.Plain/docker-compose.yaml.redis: Compose Deployment.executor": "Run",
-    "Gradle.AwsFileServiceImplTest.executor": "Run",
-    "Gradle.Build Plain.executor": "Run",
-    "Gradle.ClassMemberIntegration.executor": "Run",
-    "Gradle.CleanupTest.executor": "Run",
-    "Gradle.CleanupTest.verifyNoDataAfterCleanup.executor": "Run",
-    "Gradle.EmailServiceImplTest.executor": "Run",
-    "Gradle.EmailVerificationServiceTest.executor": "Run",
-    "Gradle.HomeworkIntegrationTest.executor": "Run",
-    "Gradle.MeetingIntegrationTest.executor": "Run",
-    "Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle.executor": "Run",
-    "Gradle.MeetingIntegrationTest.testParticipantStateChanges.executor": "Run",
-    "Gradle.MeetingServiceImplTest.executor": "Run",
-    "Gradle.ParticipantManagement.executor": "Run",
-    "Gradle.Plain [:org.example.plain.PlainApplication.main()].executor": "Run",
-    "Gradle.Plain [compileJava].executor": "Run",
-    "Gradle.Plain [dependencies].executor": "Run",
-    "Gradle.SubmissionIntegration.cancelSubmission_Success.executor": "Run",
-    "Gradle.SubmissionIntegration.executor": "Run",
-    "Gradle.WebRtcSignalingIntegrationTest.executor": "Run",
-    "Gradle.WorkIntegration.deleteWork_Success.executor": "Run",
-    "Gradle.WorkIntegration.executor": "Run",
-    "Gradle.WorkIntegration.insertWork_Success.executor": "Run",
-    "Gradle.WorkIntegration.selectGroupWorks_Success.executor": "Run",
-    "Gradle.WorkMemberIntegration.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.PlainApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/user/Desktop/github/Testback/.github/workflows",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.Plain/Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Plain/docker-compose.yaml.redis: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AwsFileServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Plain.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ClassMemberIntegration.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CleanupTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CleanupTest.verifyNoDataAfterCleanup.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmailServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EmailVerificationServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.HomeworkIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingIntegrationTest.testParticipantStateChanges.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParticipantManagement.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Plain [:org.example.plain.PlainApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Plain [compileJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Plain [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SubmissionIntegration.cancelSubmission_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.SubmissionIntegration.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WebRtcSignalingIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WorkIntegration.deleteWork_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WorkIntegration.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WorkIntegration.insertWork_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WorkIntegration.selectGroupWorks_Success.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WorkMemberIntegration.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PlainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/github/Testback/.github/workflows&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql",
-      "redis"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;redis&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\user\Desktop\github\Testback\.github\workflows" />
@@ -276,7 +315,9 @@
       </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -298,8 +339,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -318,6 +359,7 @@
       <workItem from="1743643199115" duration="12699000" />
       <workItem from="1743742737747" duration="29782000" />
       <workItem from="1744030143108" duration="1304000" />
+      <workItem from="1745035059960" duration="200000" />
     </task>
     <task id="LOCAL-00001" summary="변경">
       <option name="closed" value="true" />

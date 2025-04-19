@@ -3,11 +3,14 @@ package org.example.plain.domain.file.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import org.example.plain.domain.file.dto.FileInfo;
 import org.example.plain.domain.file.dto.SubmitFileData;
 import org.example.plain.domain.file.entity.FileEntity;
+import org.example.plain.domain.file.entity.WorkFileEntity;
+import org.example.plain.domain.file.interfaces.FileDatabaseService;
 import org.example.plain.domain.homework.entity.WorkEntity;
 import org.example.plain.domain.homework.entity.WorkMemberEntity;
-import org.example.plain.domain.homework.repository.FileRepository;
+import org.example.plain.domain.file.repository.FileRepository;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.repository.WorkMemberRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,6 +48,9 @@ class AwsFileServiceImplTest {
     @Mock
     private WorkMemberRepository workMemberRepository;
 
+    @Mock
+    private FileDatabaseService fileDatabaseService;
+
     private AwsFileServiceImpl awsFileService;
 
     private User testUser;
@@ -56,7 +62,7 @@ class AwsFileServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        awsFileService = new AwsFileServiceImpl(amazonS3, fileRepository, workMemberRepository);
+        awsFileService = new AwsFileServiceImpl(amazonS3);
         
         // Set bucket value using ReflectionTestUtils
         ReflectionTestUtils.setField(awsFileService, "bucket", BUCKET_NAME);
@@ -106,25 +112,24 @@ class AwsFileServiceImplTest {
         when(workMemberRepository.findByWorkIdAndUserId(anyString(), anyString()))
             .thenReturn(Optional.of(testWorkMember));
 
-        FileEntity expectedFileEntity = FileEntity.builder()
+        WorkFileEntity expectedFileEntity = WorkFileEntity.builder()
                 .filename("test.txt")
                 .filePath(S3_BASE_URL + "test.txt")
-                .workMember(testWorkMember)
                 .build();
 
-        when(fileRepository.save(any(FileEntity.class))).thenReturn(expectedFileEntity);
+        when(fileRepository.save(any(WorkFileEntity.class))).thenReturn(expectedFileEntity);
 
         // when
-        FileEntity result = awsFileService.uploadSingleFile(testFileData);
+        FileInfo result = awsFileService.uploadSingleFile(testFileData);
 
         // then
         assertThat(result).isNotNull();
         assertThat(result.getFilename()).isEqualTo("test.txt");
-        assertThat(result.getWorkMember()).isEqualTo(testWorkMember);
+        //assertThat(result.getWorkMember()).isEqualTo(testWorkMember);
 
         verify(workMemberRepository).findByWorkIdAndUserId(testWork.getWorkId(), testUser.getId());
         verify(amazonS3).putObject(any(PutObjectRequest.class));
-        verify(fileRepository).save(any(FileEntity.class));
+        verify(fileRepository).save(any(WorkFileEntity.class));
     }
 
     @Test
@@ -140,7 +145,7 @@ class AwsFileServiceImplTest {
 
         verify(workMemberRepository).findByWorkIdAndUserId(testWork.getWorkId(), testUser.getId());
         verify(amazonS3, never()).putObject(any(PutObjectRequest.class));
-        verify(fileRepository, never()).save(any(FileEntity.class));
+        verify(fileRepository, never()).save(any(WorkFileEntity.class));
     }
 
     @Test
@@ -149,24 +154,24 @@ class AwsFileServiceImplTest {
         when(workMemberRepository.findByWorkIdAndUserId(anyString(), anyString()))
             .thenReturn(Optional.of(testWorkMember));
 
-        FileEntity expectedFileEntity1 = FileEntity.builder()
+        WorkFileEntity expectedFileEntity1 = WorkFileEntity.builder()
                 .filename("test1.txt")
                 .filePath(S3_BASE_URL + "test1.txt")
                 .workMember(testWorkMember)
                 .build();
 
-        FileEntity expectedFileEntity2 = FileEntity.builder()
+        WorkFileEntity expectedFileEntity2 = WorkFileEntity.builder()
                 .filename("test2.txt")
                 .filePath(S3_BASE_URL + "test2.txt")
                 .workMember(testWorkMember)
                 .build();
 
-        when(fileRepository.save(any(FileEntity.class)))
+        when(fileRepository.save(any(WorkFileEntity.class)))
                 .thenReturn(expectedFileEntity1)
                 .thenReturn(expectedFileEntity2);
 
         // when
-        List<FileEntity> results = awsFileService.uploadFiles(testFileData, testFiles);
+        List<FileInfo> results = awsFileService.uploadFiles(testFileData, testFiles);
 
         // then
         assertThat(results).hasSize(2);
@@ -175,7 +180,7 @@ class AwsFileServiceImplTest {
 
         verify(workMemberRepository).findByWorkIdAndUserId(testWork.getWorkId(), testUser.getId());
         verify(amazonS3, times(2)).putObject(any(PutObjectRequest.class));
-        verify(fileRepository, times(2)).save(any(FileEntity.class));
+        verify(fileRepository, times(2)).save(any(WorkFileEntity.class));
     }
 
     @Test
@@ -191,7 +196,7 @@ class AwsFileServiceImplTest {
 
         verify(workMemberRepository).findByWorkIdAndUserId(testWork.getWorkId(), testUser.getId());
         verify(amazonS3, never()).putObject(any(PutObjectRequest.class));
-        verify(fileRepository, never()).save(any(FileEntity.class));
+        verify(fileRepository, never()).save(any(WorkFileEntity.class));
     }
 
     @Test
@@ -244,7 +249,7 @@ class AwsFileServiceImplTest {
     @Test
     void deleteFile_NullUrl_ThrowsException() {
         // when & then
-        assertThatThrownBy(() -> awsFileService.deleteFile(null))
+        assertThatThrownBy(() -> awsFileService.deleteFile((String) null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("File URL cannot be null or empty");
 

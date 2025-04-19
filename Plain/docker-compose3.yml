@@ -2,10 +2,17 @@ version: "3"
 services:
   api:
     image: kimsee/plain:latest
+    volumes:
+      - ./src/main/resources:/app/config
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_plain:3306/plain
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
+        SPRING_CONFIG_LOCATION: file:/app/config/application.yml
+
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://15.164.26.240:3310/plain
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: 1234
+#      SPRING_DATA_REDIS_HOST: 15.164.26.240
+#      SPRING_DATA_REDIS_PORT: 3101
     ports:
       - "8010:8080"
     networks:

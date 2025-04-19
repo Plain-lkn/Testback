@@ -11,6 +11,7 @@ import org.example.plain.common.config.SecurityUtils;
 import org.example.plain.domain.board.service.BoardServiceImpl;
 import org.example.plain.domain.file.interfaces.FileService;
 import org.example.plain.domain.homework.dto.*;
+import org.example.plain.domain.homework.dto.response.WorkResponse;
 import org.example.plain.domain.homework.interfaces.SubmissionService;
 import org.example.plain.domain.homework.interfaces.WorkMemberService;
 import org.example.plain.domain.homework.interfaces.WorkService;
@@ -20,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,8 +41,11 @@ public class ProjectController {
     @PostMapping
     public ResponseEntity<ResponseField> createAssignment(
             @Parameter(description = "수업 ID") @PathVariable String classId,
-            @Parameter(description = "과제 정보") @RequestBody Work work) {
+            @Parameter(description = "과제 정보") @RequestPart @RequestBody Work work,
+            @Parameter(description = "첨부 파일") @RequestPart List<MultipartFile> files
+    ) {
         log.info("과제 생성 요청 - classId: {}, work: {}", classId, work);
+        work.setFileList(files);
         workService.insertWork(work, classId, SecurityUtils.getUserId());
         return new ResponseMaker<Void>().noContent();
     }
@@ -55,12 +60,12 @@ public class ProjectController {
 
     @Operation(summary = "과제 상세 정보 조회")
     @GetMapping("/{assignmentId}")
-    public ResponseEntity<ResponseField<Work>> getAssignmentDetail(
+    public ResponseEntity<ResponseField<WorkResponse>> getAssignmentDetail(
             @Parameter(description = "수업 ID") @PathVariable String classId,
             @Parameter(description = "과제 ID") @PathVariable String assignmentId) {
         log.info("과제 상세 조회 요청 - classId: {}, assignmentId: {}", classId, assignmentId);
-        Work work = workService.selectWork(assignmentId);
-        return new ResponseMaker<Work>().ok(work);
+        WorkResponse work = workService.selectWork(assignmentId);
+        return new ResponseMaker<WorkResponse>().ok(work);
     }
 
     @Operation(summary = "과제 수정")

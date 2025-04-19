@@ -1,14 +1,16 @@
 package org.example.plain.domain.file.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.experimental.SuperBuilder;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public class FileInfo {
-    private String fileName;
-    private String filePath;
+    private String filename;
+    private String fileUrl;
 }

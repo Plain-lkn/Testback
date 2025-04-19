@@ -1,6 +1,8 @@
 package org.example.plain.domain.meeting.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.plain.domain.user.service.JWTUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.Map;
 
+@Slf4j
 @Component
 public class WebSocketAuthInterceptor implements HandshakeInterceptor {
 
@@ -23,8 +26,9 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
                                  WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         // Get token from Authorization header
         String authHeader = request.getHeaders().getFirst("Authorization");
+        log.info("authHeader: " + authHeader);
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.setStatusCode(org.springframework.http.HttpStatus.UNAUTHORIZED);
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return false;
         }
 
@@ -33,7 +37,7 @@ public class WebSocketAuthInterceptor implements HandshakeInterceptor {
         try {
             // Validate token
             if (jwtUtil.isExpired(token)) {
-                response.setStatusCode(org.springframework.http.HttpStatus.UNAUTHORIZED);
+                response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return false;
             }
 
