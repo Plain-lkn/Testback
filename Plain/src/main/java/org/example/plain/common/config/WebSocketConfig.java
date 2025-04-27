@@ -1,7 +1,7 @@
 package org.example.plain.common.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.plain.domain.chat.handler.ChatWebSocketHandler;
+//import org.example.plain.domain.chat.handler.ChatWebSocketHandler;
 import org.example.plain.domain.meeting.handler.MeetingWebSocketHandler;
 import org.example.plain.domain.meeting.interceptor.WebSocketAuthInterceptor;
 import org.springframework.context.annotation.Configuration;
