@@ -2,6 +2,7 @@ package org.example.plain.domain.file.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.plain.domain.user.entity.User;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 public abstract class FileEntity {
     private String filename;
 

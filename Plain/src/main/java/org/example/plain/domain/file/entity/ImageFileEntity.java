@@ -5,19 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "file_image")
+@Table(name = "image_file")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ImageFileEntity{
+@SuperBuilder
+public class ImageFileEntity extends FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String filename;
-    private String filePath;
 
     public static ImageFileEntity makeImageFileEntity(String filename, String filePath) {
         return ImageFileEntity.builder()

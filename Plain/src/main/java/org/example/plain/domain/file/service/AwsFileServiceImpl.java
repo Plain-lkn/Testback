@@ -80,32 +80,7 @@ public class AwsFileServiceImpl implements CloudFileService {
         List<FileInfo> fileInfos = new ArrayList<>();
 
         for (MultipartFile file : files) {
-            if (file == null) {
-                throw new IllegalArgumentException("File cannot be null");
-            }
-
-            String filename = makeFilename(file.getOriginalFilename(), id);
-            
-            // S3에 이미 동일한 키로 파일이 존재하는지 확인
-            if (isFileExists(filename)) {
-                // 이미 존재하는 파일이면 URL만 반환
-                String fileUrl = String.valueOf(amazonS3.getUrl(bucket, filename));
-                fileInfos.add(new FileInfo(filename, fileUrl));
-                continue;
-            }
-
-            try (InputStream inputStream = file.getInputStream()) {
-                ObjectMetadata metadata = new ObjectMetadata();
-                metadata.setContentLength(file.getSize());
-                metadata.setContentType(file.getContentType());
-
-                amazonS3.putObject(new PutObjectRequest(bucket, filename, inputStream, metadata));
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to upload file", e);
-            }
-
-            String fileUrl = String.valueOf(amazonS3.getUrl(bucket, filename));
-            fileInfos.add(new FileInfo(filename, fileUrl));
+            fileInfos.add(this.uploadSingleFile(new FileData(file,fileData.getFilename()), id));
         }
         
         return fileInfos;

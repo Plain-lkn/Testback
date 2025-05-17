@@ -1,6 +1,5 @@
 package org.example.plain.domain.user.service;
 
-import lombok.RequiredArgsConstructor;
 import org.example.plain.common.enums.Role;
 import org.example.plain.domain.file.dto.FileData;
 import org.example.plain.domain.file.dto.FileInfo;
@@ -9,9 +8,7 @@ import org.example.plain.domain.file.entity.ImageFileEntity;
 import org.example.plain.domain.file.entity.UserFileEntity;
 import org.example.plain.domain.file.interfaces.CloudFileService;
 import org.example.plain.domain.file.interfaces.FileDatabaseService;
-import org.example.plain.domain.file.repository.ImageFileRepository;
 import org.example.plain.domain.file.repository.UserFileRepository;
-import org.example.plain.domain.file.service.UserImageFileDatabaseServiceImpl;
 import org.example.plain.domain.user.dto.UserRequest;
 import org.example.plain.domain.user.dto.UserResponse;
 import org.example.plain.domain.user.entity.EmailVerification;
@@ -60,10 +57,10 @@ public class UserServiceImpl implements UserService {
     public boolean createUser(UserRequest userRequest) {
         // 아이디 중복 검사
         checkUserIdIsExist(userRequest.getId());
-        EmailVerification verification = emailVerificationRepository.findById(userRequest.getEmail()).orElseThrow(()->new NoSuchElementException("이메일 인증을 하지 않았습니다."));
-        if (!verification.getVerified()){
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "이메일 인증을 하지 않았습니다.");
-        }
+//        EmailVerification verification = emailVerificationRepository.findById(userRequest.getEmail()).orElseThrow(()->new NoSuchElementException("이메일 인증을 하지 않았습니다."));
+//        if (!verification.getVerified()){
+//            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "이메일 인증을 하지 않았습니다.");
+//        }
         
         // 이메일 중복 검사
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
@@ -75,7 +72,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.NORMAL);
         Objects.requireNonNull(user);
         userRepository.save(user);
-        emailVerificationRepository.delete(verification);
+        //emailVerificationRepository.delete(verification);
         return true;
     }
 

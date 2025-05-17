@@ -72,13 +72,47 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public void handleParticipantJoin(String roomId, String userId, String userName) {
+        log.info("User {} ({}) joining room {}", userId, userName, roomId);
+        
+        // 회의실 존재 여부 확인
+        MeetingRoomDto meetingRoom = redisTemplate.opsForValue().get("meeting:room:" + roomId);
+        if (meetingRoom == null) {
+            log.warn("Cannot join room {}: Room not found", roomId);
+            throw new RuntimeException("Meeting room not found");
+        }
+        
+        // 참가자 추가
         participantService.addParticipant(roomId, userId);
+        
+        // 참가자 상태 초기화
         participantService.updateParticipantState(roomId, userId, userName, false, false);
+
+        log.info(participantService.getParticipants(roomId).toString());
+
+        log.info("User {} successfully joined room {}", userId, roomId);
     }
 
     @Override
     public void handleParticipantLeave(String roomId, String userId) {
+        log.info("User {} leaving room {}", userId, roomId);
+        
+        // 회의실 존재 여부 확인
+        MeetingRoomDto meetingRoom = redisTemplate.opsForValue().get("meeting:room:" + roomId);
+        if (meetingRoom == null) {
+            log.warn("Cannot leave room {}: Room not found", roomId);
+            return; // 회의실이 없으면 그냥 리턴
+        }
+        
+        // 참가자 제거
         participantService.removeParticipant(roomId, userId);
+        
+        // 모든 참가자가 나가면 자동으로 회의실 정리
+        if (participantService.isRoomEmpty(roomId)) {
+            log.info("Room {} is now empty, cleaning up resources", roomId);
+            clearRoom(roomId);
+        }
+        
+        log.info("User {} successfully left room {}", userId, roomId);
     }
 
     @Override
@@ -133,6 +167,7 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public List<String> getParticipants(String roomId) {
+        log.info("Meeting room: {}", participantService.getParticipants(roomId));
         return participantService.getParticipants(roomId);
     }
 

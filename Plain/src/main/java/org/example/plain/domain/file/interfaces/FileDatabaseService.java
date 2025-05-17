@@ -12,5 +12,7 @@ public interface FileDatabaseService {
 
     void chackFileData(FileData fileData);
 
+    FileEntity findByFilepath(String filepath);
+
     void delete(FileEntity file);
 }
