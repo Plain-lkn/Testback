@@ -3,6 +3,7 @@ package org.example.plain.domain.calendar.dto;
 import lombok.*;
 import org.example.plain.common.enums.Category;
 import org.example.plain.domain.calendar.entity.CalendarEntity;
+import org.example.plain.domain.user.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -18,18 +19,18 @@ public class CalendarResponse {
     private String content;
     private Category category;
     private LocalDateTime dateInfo;
-    private String userId;
-    private String username;
+    private User user;
+
 
     public static CalendarResponse from(CalendarEntity calendarEntity) {
-        return CalendarResponse.builder()
-                .calId(calendarEntity.getCalId())
-                .title(calendarEntity.getTitle())
-                .content(calendarEntity.getContent())
-                .category(calendarEntity.getCategory())
-                .dateInfo(calendarEntity.getDateInfo())
-                .userId(calendarEntity.getUser().getId())
-                .username(calendarEntity.getUser().getUsername())
-                .build();
+        CalendarResponse response = new CalendarResponse();
+        response.calId = calendarEntity.getCalId();
+        response.title = calendarEntity.getTitle();
+        response.content = calendarEntity.getContent();
+        response.category = calendarEntity.getCategory();
+        response.user = calendarEntity.getUser();
+        response.dateInfo = calendarEntity.getDateInfo();
+        return response;
     }
+
 }

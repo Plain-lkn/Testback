@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NoticeCommentResponse {
 
-    private Long noticeId;
-    private Long commentId;
+    private String noticeId;
+    private String commentId;
     private String title;
     private String content;
     private LocalDateTime createDate;

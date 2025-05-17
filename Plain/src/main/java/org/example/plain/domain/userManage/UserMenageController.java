@@ -3,7 +3,7 @@ package org.example.plain.domain.userManage;
 import lombok.RequiredArgsConstructor;
 import org.example.plain.common.ResponseField;
 import org.example.plain.domain.classLecture.dto.ClassResponse;
-import org.example.plain.domain.lecture.normal.entity.Lecture;
+import org.example.plain.domain.lecture.dto.LectureResponse;
 import org.example.plain.domain.user.dto.UserResponse;
 import org.example.plain.domain.userManage.interfaces.UserManageService;
 
@@ -27,8 +27,8 @@ public class UserMenageController {
 
     @ResponseBody
     @GetMapping("/my_lectures")
-    public ResponseField<List<Lecture>> classList(String userId){
-        return new ResponseField<List<Lecture>>().returnOkResponseField(userManageService.getMyLectures(userId));
+    public ResponseField<List<LectureResponse>> classList(String userId){
+        return new ResponseField<List<LectureResponse>>().returnOkResponseField(userManageService.getMyLectures(userId));
     }
 
     @ResponseBody

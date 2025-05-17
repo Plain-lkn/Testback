@@ -4,48 +4,68 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: token username 추가">
+    <list default="true" id="e1fa4712-9fa8-4056-8fbe-3d440f358067" name="변경" comment="refector: WebSocket 두번째 임시 수정">
+      <change afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/LectureVideoFileData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/filedatabase/LectureFileDatabaseService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/service/impl/LectureVideoFileBusinessImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/service/interfaces/LectureVideoFileBusiness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/500cd816-2737-4e5e-b018-9f4955f2365a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/500cd816-2737-4e5e-b018-9f4955f2365a.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c8b414f9-28c7-4ca4-b635-589e6b4faa42.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c8b414f9-28c7-4ca4-b635-589e6b4faa42.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/docker-compose3.yml" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/docker-compose3.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/PlainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/PlainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/docker-compose2.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/docker-compose2.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/SecurityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebSocketSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/config/WebSocketSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/handler/ControllerExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/common/handler/ControllerExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/board/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/board/service/BoardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileData.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/FileInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileData.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/dto/SubmitFileInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/controller/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/controller/CalendarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/dto/CalendarResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/repository/CalendarRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/repository/CalendarRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/service/CalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/calendar/service/CalendarService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/FileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/FileEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/CloudFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/CloudFileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/ImageFileEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/entity/ImageFileEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/interfaces/FileDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/AssignmentFileDatabaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/filedatabase/AssignmentFileDatabaseServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/AwsFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/AwsFileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/controller/ProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/dto/Work.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/dto/Work.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/entity/WorkMemberEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/entity/WorkMemberEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/SubmissionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/SubmissionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/WorkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/interfaces/WorkService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/CloudWorkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/CloudWorkServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/SubmissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/homework/service/SubmissionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/interceptor/WebSocketAuthInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/interceptor/WebSocketAuthInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/dto/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/dto/UserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/entity/EmailVerification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/entity/EmailVerification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/interfaces/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/interfaces/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/repository/HttpCookieOAuth2AuthorizationRequestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/repository/HttpCookieOAuth2AuthorizationRequestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/CookieUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/CookieUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/EmailVerificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/EmailVerificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/UserImageFileDatabaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/filedatabase/UserImageFileDatabaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/WorkDocFileDatabaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/file/service/filedatabase/WorkDocFileDatabaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/controller/lectureController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/dto/LectureMemberRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/dto/LectureMemberResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/entity/LectureMember.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/interfaces/LectureMemberService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/repository/LectureMemberRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/lectureMember/service/LectureMemberImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/data/LectureResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/data/LectureResponsePerchers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/entity/Lecture.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/interfaces/LectureService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/repository/LectureRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/lecture/normal/service/LectureServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/controller/MeetingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/controller/MeetingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/handler/MeetingWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/handler/MeetingWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/service/impl/MeetingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/service/impl/MeetingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/service/impl/ParticipantServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/meeting/service/impl/ParticipantServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/controller/NoticeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/controller/NoticeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeCommentUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/dto/NoticeUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/entity/NoticeCommentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/entity/NoticeCommentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/entity/NoticeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/entity/NoticeEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/repository/NoticeCommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/repository/NoticeCommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/repository/NoticeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/repository/NoticeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/service/NoticeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/notice/service/NoticeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/user/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/UserMenageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/UserMenageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/interfaces/UserManageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/interfaces/UserManageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/service/UserManageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/domain/userManage/service/UserManageServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/repository/BoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/main/java/org/example/plain/repository/BoardRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/file/service/AwsFileServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/file/service/AwsFileServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/integration/HomeworkIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/integration/HomeworkIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/service/SubmissionServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/homework/service/SubmissionServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/user/integration/UserIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/user/integration/UserIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/homework/service/WorkServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/homework/service/WorkServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/user/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/user/service/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/meeting/integration/MeetingIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Plain/src/test/java/org/example/plain/domain/meeting/integration/MeetingIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +100,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -95,12 +116,16 @@
     &quot;assignee&quot;: &quot;kimsee8200&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kimsee8200/Testback2",
-    "accountId": "57523f15-897e-4909-a52d-85206ca638a5"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kimsee8200/Testback2&quot;,
+    &quot;accountId&quot;: &quot;57523f15-897e-4909-a52d-85206ca638a5&quot;
   }
-}]]></component>
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/6.1.13/1e41c3a429bb57af6ae6ebdf32e740cd162cc69b/spring-context-6.1.13-sources.jar!/org/springframework/context/ApplicationContext.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/6.1.13/5c5629311c3d0e5013248ddd1b38ce35182f5e3b/spring-core-6.1.13-sources.jar!/org/springframework/cglib/beans/BeanGenerator.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
@@ -123,25 +148,36 @@
   &quot;keyToString&quot;: {
     &quot;Docker.Plain/Dockerfile.executor&quot;: &quot;Run&quot;,
     &quot;Docker.Plain/docker-compose.yaml.redis: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Plain/docker-compose2.yaml.redis: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.AwsFileServiceImplTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Build Plain.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ChatIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.ClassMemberIntegration.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.CleanupTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.CleanupTest.verifyNoDataAfterCleanup.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.EmailServiceImplTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.EmailVerificationServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.HomeworkIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingControllerIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingControllerIntegrationTest.testEntireMeetingFlowWithWebSocketSignaling.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MeetingIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MeetingIntegrationTest.testParticipantStateChanges.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.MeetingRoomIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.MeetingServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NoticeControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NoticeIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NoticeIntegrationTest.getAllNotice.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.NoticeServiceTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.ParticipantManagement.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ParticipantManagementTests.multipleParticipantsCanJoinSimultaneously.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Plain [:org.example.plain.PlainApplication.main()].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Plain [compileJava].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.Plain [dependencies].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.SubmissionIntegration.cancelSubmission_Success.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.SubmissionIntegration.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WebRtcSignalingIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.WebSocketMeetingIntegrationTest.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WorkIntegration.deleteWork_Success.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WorkIntegration.executor&quot;: &quot;Run&quot;,
     &quot;Gradle.WorkIntegration.insertWork_Success.executor&quot;: &quot;Run&quot;,
@@ -155,7 +191,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Spring Boot.PlainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Desktop/github/Testback/.github/workflows&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -163,13 +199,16 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;,
-      &quot;redis&quot;
+      &quot;redis&quot;,
+      &quot;mysql&quot;
     ]
   }
 }</component>
@@ -185,8 +224,8 @@
       <recent name="org.example.plain.domain.notice.repository" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.PlainApplication">
-    <configuration name="ClassMemberIntegration" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.MeetingControllerIntegrationTest.testEntireMeetingFlowWithWebSocketSignaling">
+    <configuration name="MeetingControllerIntegrationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
@@ -199,7 +238,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$ClassMemberIntegration&quot;" />
+            <option value="&quot;org.example.plain.domain.meeting.controller.MeetingControllerIntegrationTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -210,7 +249,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="CleanupTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MeetingControllerIntegrationTest.testEntireMeetingFlowWithWebSocketSignaling" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
@@ -223,7 +262,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$CleanupTest&quot;" />
+            <option value="&quot;org.example.plain.domain.meeting.controller.MeetingControllerIntegrationTest.testEntireMeetingFlowWithWebSocketSignaling&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -234,7 +273,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="CleanupTest.verifyNoDataAfterCleanup" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="MeetingRoomIntegrationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
@@ -247,7 +286,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$CleanupTest.verifyNoDataAfterCleanup&quot;" />
+            <option value="&quot;org.example.plain.domain.meeting.integration.MeetingRoomIntegrationTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -258,7 +297,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="MeetingIntegrationTest.testMeetingRoomLifecycle" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="NoticeIntegrationTest.getAllNotice" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
@@ -271,7 +310,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.plain.domain.meeting.integration.MeetingIntegrationTest.testMeetingRoomLifecycle&quot;" />
+            <option value="&quot;org.example.plain.domain.notice.integration.NoticeIntegrationTest.getAllNotice&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -282,7 +321,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="WorkIntegration.selectGroupWorks_Success" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ParticipantManagementTests.multipleParticipantsCanJoinSimultaneously" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Plain" />
@@ -295,7 +334,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.example.plain.domain.homework.integration.HomeworkIntegrationTest$WorkIntegration.selectGroupWorks_Success&quot;" />
+            <option value="&quot;org.example.plain.domain.meeting.integration.MeetingRoomIntegrationTest$ParticipantManagementTests.multipleParticipantsCanJoinSimultaneously&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -328,11 +367,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.MeetingIntegrationTest.testMeetingRoomLifecycle" />
-        <item itemvalue="Gradle.CleanupTest.verifyNoDataAfterCleanup" />
-        <item itemvalue="Gradle.CleanupTest" />
-        <item itemvalue="Gradle.ClassMemberIntegration" />
-        <item itemvalue="Gradle.WorkIntegration.selectGroupWorks_Success" />
+        <item itemvalue="Gradle.MeetingControllerIntegrationTest.testEntireMeetingFlowWithWebSocketSignaling" />
+        <item itemvalue="Gradle.ParticipantManagementTests.multipleParticipantsCanJoinSimultaneously" />
+        <item itemvalue="Gradle.MeetingControllerIntegrationTest" />
+        <item itemvalue="Gradle.MeetingRoomIntegrationTest" />
+        <item itemvalue="Gradle.NoticeIntegrationTest.getAllNotice" />
       </list>
     </recent_temporary>
   </component>
@@ -360,6 +399,15 @@
       <workItem from="1743742737747" duration="29782000" />
       <workItem from="1744030143108" duration="1304000" />
       <workItem from="1745035059960" duration="200000" />
+      <workItem from="1745147584429" duration="14357000" />
+      <workItem from="1745452305015" duration="21169000" />
+      <workItem from="1745713031825" duration="62425000" />
+      <workItem from="1746584451390" duration="1659000" />
+      <workItem from="1746667827314" duration="577000" />
+      <workItem from="1746703174311" duration="590000" />
+      <workItem from="1746768133673" duration="19590000" />
+      <workItem from="1747138217942" duration="26322000" />
+      <workItem from="1747364455664" duration="2894000" />
     </task>
     <task id="LOCAL-00001" summary="변경">
       <option name="closed" value="true" />
@@ -401,7 +449,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744126059999</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refector: WebSocket 두번째 임시 수정">
+      <option name="closed" value="true" />
+      <created>1745147637478</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745147637478</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -423,6 +479,17 @@
     <MESSAGE value="refector: fileEntity, Config 오류 해결" />
     <MESSAGE value="refector: 과제, 실시간 강의 통합테스트 및 리팩토링" />
     <MESSAGE value="refector: token username 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="refector: token username 추가" />
+    <MESSAGE value="refector: WebSocket 두번째 임시 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="refector: WebSocket 두번째 임시 수정" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="io.lettuce.core.RedisConnectionException" package="io.lettuce.core" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

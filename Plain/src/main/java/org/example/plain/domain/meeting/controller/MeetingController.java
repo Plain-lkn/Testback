@@ -22,21 +22,6 @@ import java.util.Map;
 public class MeetingController {
     private final MeetingService meetingService;
 
-    @PostMapping("/{roomId}/join")
-    public ResponseEntity<Void> joinMeeting(@PathVariable String roomId, @RequestBody Map<String, String> request) {
-        String userId = SecurityUtils.getUserId();
-        String userName = request.getOrDefault("user-name", userId); // 기본값으로 userId 사용
-        meetingService.handleParticipantJoin(roomId, userId, userName);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/{roomId}/leave")
-    public ResponseEntity<Void> leaveMeeting(@PathVariable String roomId) {
-        String userId = SecurityUtils.getUserId();
-        meetingService.handleParticipantLeave(roomId, userId);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/{roomId}/participants")
     public ResponseEntity<List<String>> getParticipants(@PathVariable String roomId) {
         return ResponseEntity.ok(meetingService.getParticipants(roomId));

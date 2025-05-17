@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.plain.domain.classLecture.dto.ClassResponse;
 import org.example.plain.domain.classMember.entity.ClassMember;
 import org.example.plain.domain.classMember.repository.ClassMemberRepository;
-import org.example.plain.domain.lecture.normal.entity.Lecture;
+import org.example.plain.domain.lecture.dto.LectureResponse;
 import org.example.plain.domain.user.dto.UserResponse;
 import org.example.plain.domain.user.entity.User;
 import org.example.plain.domain.user.repository.UserRepository;
@@ -42,7 +42,7 @@ public class UserManageServiceImpl implements UserManageService {
     }
 
     @Override
-    public List<Lecture> getMyLectures(String userId) {
+    public List<LectureResponse> getMyLectures(String userId) {
         return List.of();
     }
 

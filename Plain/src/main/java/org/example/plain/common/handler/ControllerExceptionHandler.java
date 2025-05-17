@@ -1,5 +1,6 @@
 package org.example.plain.common.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.plain.common.ResponseField;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 
 
 @ControllerAdvice
+@Slf4j
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({SQLException.class})
@@ -45,6 +47,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseField> handlerOtherException(Exception e) {
         ResponseField responseField = new ResponseField(e.getMessage(), HttpStatus.valueOf(400),null);
+        log.error("",e.fillInStackTrace());
         return new ResponseEntity<>(responseField, HttpStatus.valueOf(400));
     }
 

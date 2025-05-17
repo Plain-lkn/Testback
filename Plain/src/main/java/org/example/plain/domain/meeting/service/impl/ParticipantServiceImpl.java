@@ -6,24 +6,27 @@ import org.example.plain.domain.meeting.service.ParticipantService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ParticipantServiceImpl implements ParticipantService {
-    private final Map<String, List<String>> roomParticipants = new ConcurrentHashMap<>();
+    private final Map<String, LinkedHashSet<String>> roomParticipants = new ConcurrentHashMap<>();
     private final Map<String, ParticipantState> participantStates = new ConcurrentHashMap<>();
 
     @Override
     public void addParticipant(String roomId, String participantId) {
-        roomParticipants.computeIfAbsent(roomId, k -> new ArrayList<>()).add(participantId);
+        roomParticipants.computeIfAbsent(roomId, k -> new LinkedHashSet<>()).add(participantId);
     }
 
     @Override
     public void removeParticipant(String roomId, String participantId) {
-        List<String> participants = roomParticipants.get(roomId);
+        LinkedHashSet<String> participants = roomParticipants.get(roomId);
         if (participants != null) {
             participants.remove(participantId);
             if (participants.isEmpty()) {
@@ -35,31 +38,34 @@ public class ParticipantServiceImpl implements ParticipantService {
 
     @Override
     public List<String> getParticipants(String roomId) {
-        return roomParticipants.getOrDefault(roomId, new ArrayList<>());
+        return new ArrayList<>(roomParticipants.getOrDefault(roomId, new LinkedHashSet<>()));
     }
 
     @Override
     public void updateParticipantState(String roomId, String userId, String userName, boolean isMuted, boolean isVideoOff) {
-        ParticipantState state = ParticipantState.builder()
-                .userId(userId)
-                .userName(userName)
-                .isMuted(isMuted)
-                .isVideoOff(isVideoOff)
-                .build();
-        participantStates.put(roomId + ":" + userId, state);
+        LinkedHashSet<String> participants = roomParticipants.get(roomId);
+        if (participants != null && participants.contains(userId)) {
+            ParticipantState state = ParticipantState.builder()
+                    .userId(userId)
+                    .userName(userName)
+                    .isMuted(isMuted)
+                    .isVideoOff(isVideoOff)
+                    .build();
+            participantStates.put(roomId + ":" + userId, state);
+        }
     }
 
     @Override
     public List<ParticipantState> getParticipantStates(String roomId) {
-        return roomParticipants.getOrDefault(roomId, new ArrayList<>()).stream()
+        return roomParticipants.getOrDefault(roomId, new LinkedHashSet<>()).stream()
                 .map(userId -> participantStates.get(roomId + ":" + userId))
                 .filter(state -> state != null)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean isRoomEmpty(String roomId) {
-        List<String> participants = roomParticipants.get(roomId);
+        LinkedHashSet<String> participants = roomParticipants.get(roomId);
         return participants == null || participants.isEmpty();
     }
 

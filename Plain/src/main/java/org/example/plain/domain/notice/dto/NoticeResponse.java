@@ -13,12 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NoticeResponse{
 
-    private Long noticeId;
+    private String noticeId;
     private String title;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifiedAt;
     private User user;
+    private String c_id;
 
 
     public static NoticeResponse from(NoticeEntity noticeEntity) {
@@ -27,6 +28,7 @@ public class NoticeResponse{
         response.title = noticeEntity.getTitle();
         response.content = noticeEntity.getContent();
         response.user = noticeEntity.getUser();
+        response.c_id = noticeEntity.getClassLecture().getId();
         response.createDate = noticeEntity.getCreateDate();
         response.modifiedAt = noticeEntity.getModifiedAt();
         return response;

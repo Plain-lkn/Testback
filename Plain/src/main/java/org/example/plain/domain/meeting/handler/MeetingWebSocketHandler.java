@@ -1,5 +1,6 @@
 package org.example.plain.domain.meeting.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -124,30 +125,37 @@ public class MeetingWebSocketHandler extends TextWebSocketHandler {
         return path.substring(path.lastIndexOf('/') + 1);
     }
 
-    private void broadcastToRoom(String roomId, TextMessage message) throws Exception {
+    private synchronized void broadcastToRoom(String roomId, TextMessage message) throws Exception {
         Set<WebSocketSession> sessions = roomSessions.get(roomId);
         if (sessions != null) {
             for (WebSocketSession session : sessions) {
                 if (session.isOpen()) {
-                    session.sendMessage(message);
+                    try {
+                        session.sendMessage(message);
+                    } catch (IOException e) {
+                        log.error("Failed to send message to session: {}", e.getMessage());
+                    }
                 }
             }
         }
     }
 
-    private void handleOfferSignal(String roomId, Map<String, Object> payload) {
+    private void handleOfferSignal(String roomId, Map<String, Object> payload) throws Exception {
         String offerSdp = (String) payload.get("data");
         redisTemplate.opsForValue().set("meeting:room:" + roomId + ":offer", offerSdp);
+        broadcastToRoom(roomId,new TextMessage(objectMapper.writeValueAsString(payload)));
     }
 
-    private void handleAnswerSignal(String roomId, Map<String, Object> payload) {
+    private void handleAnswerSignal(String roomId, Map<String, Object> payload) throws Exception {
         String answerSdp = (String) payload.get("data");
         redisTemplate.opsForValue().set("meeting:room:" + roomId + ":answer", answerSdp);
+        broadcastToRoom(roomId,new TextMessage(objectMapper.writeValueAsString(payload)));
     }
 
-    private void handleCandidateSignal(String roomId, Map<String, Object> payload) {
+    private void handleCandidateSignal(String roomId, Map<String, Object> payload) throws Exception {
         String candidate = (String) payload.get("data");
         redisTemplate.opsForList().rightPush("meeting:room:" + roomId + ":candidates", candidate);
+        broadcastToRoom(roomId,new TextMessage(objectMapper.writeValueAsString(payload)));
     }
 
     private void handleChatMessage(String roomId, String userId, String username, Map<String, Object> payload) throws Exception {

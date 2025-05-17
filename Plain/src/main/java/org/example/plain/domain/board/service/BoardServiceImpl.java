@@ -34,6 +34,12 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    public List<Board> selectKeyword(String classId,String keyword) {
+        List<BoardEntity> board = boardRepository.findBoardByClassIdAndKeyword(classId, keyword).orElseThrow();
+        List<Board> boards = board.stream().map(boardEntity -> Board.changeBoard(boardEntity)).toList();
+        return boards;
+    }
+
     @Override
     public void createBoard(Board board) {
         boardDao.save(transportBoardEntity(board));

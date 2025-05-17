@@ -13,7 +13,7 @@ services:
     image: redis:latest
     restart: always
     ports:
-      - "3101:6378"
+      - "3101:6379"
     container_name: plain-redis
     volumes:
       - redis_data:/var/lib/redis
